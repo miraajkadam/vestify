@@ -13,11 +13,11 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model User {
-  id       String   @id @default(uuid())
-  username String
-  password String
-  userType UserType @default(USER)
+model Users {
+  Id       String   @id @default(uuid())
+  Username String
+  Password String
+  UserType UserType @default(USER)
 }
 
 enum UserType {

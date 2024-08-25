@@ -9,5 +9,5 @@ type ApiSuccessResponse<T> = {
 
 type ApiErrorResponse = {
   success: false
-  stack?: string
+  stack?: string | false | undefined
 }
