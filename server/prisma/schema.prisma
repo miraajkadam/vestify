@@ -20,6 +20,57 @@ model Users {
   UserType UserType @default(USER)
 }
 
+model Projects {
+  Id                          String                        @id @default(uuid())
+  Name                        String
+  Description                 String
+  Category                    String
+  Round                       String
+  ProjectTokenMetrics         ProjectTokenMetrics?
+  ProjectDeals                ProjectDeals?
+  ProjectTeamAndAdvisors      ProjectTeamAndAdvisors[]
+  ProjectPartnersAndInvestors ProjectPartnersAndInvestors[]
+}
+
+model ProjectTokenMetrics {
+  Id         String   @id @default(uuid())
+  Project    Projects @relation(fields: [ProjectId], references: [Id])
+  ProjectId  String   @unique @default(uuid())
+  FDV        String
+  Price      String
+  TgeUnlock  String
+  TGE        DateTime
+  Vesting    DateTime
+  Allocation String
+}
+
+model ProjectDeals {
+  Id             String   @id @default(uuid())
+  Project        Projects @relation(fields: [ProjectId], references: [Id])
+  ProjectId      String   @unique @default(uuid())
+  Maximum        Decimal
+  Minimum        Decimal
+  AcceptedTokens String
+  PoolFee        Decimal
+}
+
+model ProjectTeamAndAdvisors {
+  Id          String   @id @default(uuid())
+  Project     Projects @relation(fields: [ProjectId], references: [Id])
+  ProjectId   String   @default(uuid())
+  Name        String
+  Title       String
+  Description String
+}
+
+model ProjectPartnersAndInvestors {
+  Id                     String   @id @default(uuid())
+  Project                Projects @relation(fields: [ProjectId], references: [Id])
+  ProjectId              String   @default(uuid())
+  PartnerAndInvestorName String
+  PartnerAndInvestorLogo String
+}
+
 enum UserType {
   USER
   VC

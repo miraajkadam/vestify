@@ -1,6 +1,7 @@
 import express from 'express'
 
 import authRouter from '@routes/auth.route'
+import projectRouter from '@routes/project.route'
 
 const app = express()
 
@@ -8,6 +9,7 @@ app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 
 app.use('/api/auth', authRouter)
+app.use('/api/project', projectRouter)
 
 app.get('/health', (req, res) => {
   res.status(200).send('server is running')
