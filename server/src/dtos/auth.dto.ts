@@ -4,22 +4,22 @@ const prisma = new PrismaClient()
 
 export const createNewUserInDb = async (username: string, password: string, userType: UserType) => {
   const user = await prisma.users.create({
-    data: { Username: username, Password: password, UserType: userType },
+    data: { username, password, userType },
     select: {
-      Id: true,
+      id: true,
     },
   })
 
-  return user?.Id
+  return user?.id
 }
 
 export const getUserByEmailAndPasswordFromDb = async (username: string, password: string) => {
   const user = await prisma.users.findFirst({
     where: {
-      Username: username,
-      Password: password,
+      username,
+      password,
     },
   })
 
-  return user?.Id
+  return user?.id
 }

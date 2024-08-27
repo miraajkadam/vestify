@@ -14,61 +14,74 @@ datasource db {
 }
 
 model Users {
-  Id       String   @id @default(uuid())
-  Username String
-  Password String
-  UserType UserType @default(USER)
+  id       String   @id @default(uuid()) @map("Id")
+  username String   @map("Username")
+  password String   @map("Password")
+  userType UserType @default(USER) @map("UserType")
 }
 
 model Projects {
-  Id                          String                        @id @default(uuid())
-  Name                        String
-  Description                 String
-  Category                    String
-  Round                       String
-  ProjectTokenMetrics         ProjectTokenMetrics?
-  ProjectDeals                ProjectDeals?
-  ProjectTeamAndAdvisors      ProjectTeamAndAdvisors[]
-  ProjectPartnersAndInvestors ProjectPartnersAndInvestors[]
+  id                          String                        @id @default(uuid()) @map("Id")
+  name                        String                        @map("Name")
+  description                 String                        @map("Description")
+  category                    String                        @map("Category")
+  round                       String                        @map("Round")
+  projectTokenMetrics         ProjectTokenMetrics?
+  projectDeals                ProjectDeals?
+  projectTeamAndAdvisors      ProjectTeamAndAdvisors[]
+  projectPartnersAndInvestors ProjectPartnersAndInvestors[]
+  projectSocials              ProjectSocials?
 }
 
 model ProjectTokenMetrics {
-  Id         String   @id @default(uuid())
-  Project    Projects @relation(fields: [ProjectId], references: [Id])
-  ProjectId  String   @unique @default(uuid())
-  FDV        String
-  Price      String
-  TgeUnlock  String
-  TGE        DateTime
-  Vesting    DateTime
-  Allocation String
+  id         String   @id @default(uuid()) @map("Id")
+  Project    Projects @relation(fields: [projectId], references: [id])
+  projectId  String   @unique @default(uuid()) @map("ProjectId")
+  fdv        String   @map("FDV")
+  price      String   @map("Price")
+  tgeUnlock  String   @map("TgeUnlock")
+  tge        DateTime @map("TGE")
+  vesting    DateTime @map("Vesting")
+  allocation String   @map("Allocation")
 }
 
 model ProjectDeals {
-  Id             String   @id @default(uuid())
-  Project        Projects @relation(fields: [ProjectId], references: [Id])
-  ProjectId      String   @unique @default(uuid())
-  Maximum        Decimal
-  Minimum        Decimal
-  AcceptedTokens String
-  PoolFee        Decimal
+  id             String   @id @default(uuid()) @map("Id")
+  Project        Projects @relation(fields: [projectId], references: [id])
+  projectId      String   @unique @default(uuid()) @map("ProjectId")
+  maximum        Decimal  @map("Maximum")
+  minimum        Decimal  @map("Minimum")
+  acceptedTokens String   @map("AcceptedTokens")
+  poolFee        Decimal  @map("PoolFee")
 }
 
 model ProjectTeamAndAdvisors {
-  Id          String   @id @default(uuid())
-  Project     Projects @relation(fields: [ProjectId], references: [Id])
-  ProjectId   String   @default(uuid())
-  Name        String
-  Title       String
-  Description String
+  id          String   @id @default(uuid()) @map("Id")
+  Project     Projects @relation(fields: [projectId], references: [id])
+  projectId   String   @default(uuid()) @map("ProjectId")
+  name        String   @map("Name")
+  title       String   @map("Title")
+  description String   @map("Description")
 }
 
 model ProjectPartnersAndInvestors {
-  Id                     String   @id @default(uuid())
-  Project                Projects @relation(fields: [ProjectId], references: [Id])
-  ProjectId              String   @default(uuid())
-  PartnerAndInvestorName String
-  PartnerAndInvestorLogo String
+  id        String   @id @default(uuid()) @map("Id")
+  Project   Projects @relation(fields: [projectId], references: [id])
+  projectId String   @default(uuid()) @map("ProjectId")
+  name      String   @map("Name")
+  logo      String   @map("Logo")
+}
+
+model ProjectSocials {
+  id        String   @id @default(uuid()) @map("Id")
+  Project   Projects @relation(fields: [projectId], references: [id])
+  projectId String   @unique @default(uuid()) @map("ProjectId")
+  x         String?  @map("X")
+  instagram String?  @map("Instagram")
+  discord   String?  @map("Discord")
+  telegram  String?  @map("Telegram")
+  medium    String?  @map("Medium")
+  youtube   String?  @map("Youtube")
 }
 
 enum UserType {

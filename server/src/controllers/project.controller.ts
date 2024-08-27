@@ -1,28 +1,29 @@
+import { type Request, type Response } from 'express'
+
 import { AddProjectApiPayload } from '@customTypes/ProjectTypes'
 import { addProjectToDb } from '@dtos/project.dto'
 import { ApiResponse } from '@models/ApiResponse'
-import { type Request, type Response } from 'express'
+import { createErrorResponse } from '@utils/error'
 
-export const addNewProject = (
-  req: Request<null, null, AddProjectApiPayload, null>,
-  res: Response<null>
+export const addNewProject = async (
+  req: Request<null, ApiResponse<string>, AddProjectApiPayload, null>,
+  res: Response<ApiResponse<string>>
 ) => {
-  const project = {
-    Allocation: 'sakmd',
-    Category: 'samdksa',
-    Description: 'KSADSA',
-    FDV: 'SKDMLAMD',
-    Name: 'KSDMSALK',
-    Price: '21321',
-    Round: 'A',
-    TGE: new Date(),
-    TgeUnlock: 'Yes',
-    Vesting: new Date(),
+  try {
+    const newProjectId = await addProjectToDb(req.body)
+
+    return res.status(200).send({
+      message: 'ok',
+      success: true,
+      data: newProjectId,
+    })
+  } catch (ex: any) {
+    const error = ex as unknown as Error
+
+    console.error('An exception occurred while adding project to database, ', error.message)
+
+    const { message, stack, status } = createErrorResponse(error.message, error?.stack)
+
+    res.status(status).send({ message, success: false, stack })
   }
-
-  const asd = addProjectToDb(project)
-
-  console.log(asd)
-
-  return res.status(200).send(null)
 }
