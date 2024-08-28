@@ -25,7 +25,7 @@ model Projects {
   name                        String                        @map("Name")
   description                 String                        @map("Description")
   category                    String                        @map("Category")
-  round                       String                        @map("Round")
+  round                       ProjectRound                  @map("Round")
   projectTokenMetrics         ProjectTokenMetrics?
   projectDeals                ProjectDeals?
   projectTeamAndAdvisors      ProjectTeamAndAdvisors[]
@@ -99,11 +99,11 @@ enum UserType {
   VC
 }
 
-// enum ProjectRound {
-//   PRE_SEED  @map("PRE SEED")
-//   SEED      @map("SEED")
-//   PRIVATE_1 @map("PRIVATE 1")
-//   PRIVATE_2 @map("PRIVATE 2")
-//   PRIVATE_3 @map("PRIVATE 3")
-//   PUBLIC    @map("PUBLIC")
-// }
+enum ProjectRound {
+  PRE_SEED  @map("PRE SEED")
+  SEED      @map("SEED")
+  PRIVATE_1 @map("PRIVATE 1")
+  PRIVATE_2 @map("PRIVATE 2")
+  PRIVATE_3 @map("PRIVATE 3")
+  PUBLIC    @map("PUBLIC")
+}
