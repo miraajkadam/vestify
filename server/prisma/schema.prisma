@@ -35,7 +35,7 @@ model Projects {
 
 model ProjectTokenMetrics {
   id         String   @id @default(uuid()) @map("Id")
-  Project    Projects @relation(fields: [projectId], references: [id])
+  Project    Projects @relation(fields: [projectId], references: [id], onDelete: Cascade)
   projectId  String   @unique @default(uuid()) @map("ProjectId")
   fdv        String   @map("FDV")
   price      String   @map("Price")
@@ -47,7 +47,7 @@ model ProjectTokenMetrics {
 
 model ProjectDeals {
   id             String   @id @default(uuid()) @map("Id")
-  Project        Projects @relation(fields: [projectId], references: [id])
+  Project        Projects @relation(fields: [projectId], references: [id], onDelete: Cascade)
   projectId      String   @unique @default(uuid()) @map("ProjectId")
   maximum        Decimal  @map("Maximum")
   minimum        Decimal  @map("Minimum")
@@ -57,7 +57,7 @@ model ProjectDeals {
 
 model ProjectTeamAndAdvisors {
   id          String   @id @default(uuid()) @map("Id")
-  Project     Projects @relation(fields: [projectId], references: [id])
+  Project     Projects @relation(fields: [projectId], references: [id], onDelete: Cascade)
   projectId   String   @default(uuid()) @map("ProjectId")
   name        String   @map("Name")
   title       String   @map("Title")
@@ -66,7 +66,7 @@ model ProjectTeamAndAdvisors {
 
 model ProjectPartnersAndInvestors {
   id        String   @id @default(uuid()) @map("Id")
-  Project   Projects @relation(fields: [projectId], references: [id])
+  Project   Projects @relation(fields: [projectId], references: [id], onDelete: Cascade)
   projectId String   @default(uuid()) @map("ProjectId")
   name      String   @map("Name")
   logo      String   @map("Logo")
@@ -74,7 +74,7 @@ model ProjectPartnersAndInvestors {
 
 model ProjectSocials {
   id        String   @id @default(uuid()) @map("Id")
-  Project   Projects @relation(fields: [projectId], references: [id])
+  Project   Projects @relation(fields: [projectId], references: [id], onDelete: Cascade)
   projectId String   @unique @default(uuid()) @map("ProjectId")
   x         String?  @map("X")
   instagram String?  @map("Instagram")
@@ -84,7 +84,26 @@ model ProjectSocials {
   youtube   String?  @map("Youtube")
 }
 
+// model VC {
+//   id               String   @id @default(uuid()) @map("Id")
+//   name             String   @map("Name")
+//   description      String   @map("Description")
+//   category         String   @map("Category")
+//   amountToBeRaised String   @map("AmountToBeRaise")
+//   tags             String[] @map("Tags")
+//   roiDetails       String   @map("RoiDetails")
+// }
+
 enum UserType {
   USER
   VC
 }
+
+// enum ProjectRound {
+//   PRE_SEED  @map("PRE SEED")
+//   SEED      @map("SEED")
+//   PRIVATE_1 @map("PRIVATE 1")
+//   PRIVATE_2 @map("PRIVATE 2")
+//   PRIVATE_3 @map("PRIVATE 3")
+//   PUBLIC    @map("PUBLIC")
+// }
