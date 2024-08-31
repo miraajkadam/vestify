@@ -1,7 +1,11 @@
 import { type Request, type Response } from 'express'
 
-import { AddProjectApiPayload } from '@customTypes/ProjectTypes'
-import { addProjectToDb } from '@dtos/project.dto'
+import {
+  AddProjectApiPayload,
+  DeleteProjectApiPayload,
+  ProjectListResponse,
+} from '@customTypes/ProjectTypes'
+import { addProjectToDb, deleteProjectFromDb, getAllProjectFromDb } from '@dtos/project.dto'
 import { ApiResponse } from '@models/ApiResponse'
 import { createErrorResponse } from '@utils/error'
 
@@ -10,19 +14,72 @@ export const addNewProject = async (
   res: Response<ApiResponse<string>>
 ) => {
   try {
-    const newProjectId = await addProjectToDb(req.body)
+    const { id } = await addProjectToDb(req.body)
 
     return res.status(200).send({
-      message: 'ok',
+      message: 'new project added successfully',
       success: true,
-      data: newProjectId,
+      data: id,
     })
   } catch (ex: any) {
     const error = ex as unknown as Error
 
-    console.error('An exception occurred while adding project to database, ', error.message)
+    const errorMessage = 'An exception occurred while adding project to database, ' + error.message
 
-    const { message, stack, status } = createErrorResponse(error.message, error?.stack)
+    console.error(errorMessage)
+
+    const { message, stack, status } = createErrorResponse(errorMessage, error?.stack)
+
+    res.status(status).send({ message, success: false, stack })
+  }
+}
+
+export const deleteProject = async (
+  req: Request<null, ApiResponse<null>, DeleteProjectApiPayload, null>,
+  res: Response<ApiResponse<null>>
+) => {
+  try {
+    const { id } = req.body
+    await deleteProjectFromDb(id)
+
+    return res.status(200).send({
+      message: 'project deleted sucessfull',
+      success: true,
+    })
+  } catch (ex: any) {
+    const error = ex as unknown as Error
+
+    const errorMessage =
+      'An exception occurred while deleting project from database, ' + error.message
+
+    console.error(errorMessage)
+
+    const { message, stack, status } = createErrorResponse(errorMessage, error?.stack)
+
+    res.status(status).send({ message, success: false, stack })
+  }
+}
+
+export const getAllProjects = async (
+  req: Request<null, ApiResponse<ProjectListResponse>, DeleteProjectApiPayload, null>,
+  res: Response<ApiResponse<ProjectListResponse>>
+) => {
+  try {
+    const projects = await getAllProjectFromDb()
+
+    return res.status(200).send({
+      message: 'project list fetch successful',
+      success: true,
+      data: projects,
+    })
+  } catch (ex: any) {
+    const error = ex as unknown as Error
+
+    const errorMessage = 'An exception occurred while getting all projects, ' + error.message
+
+    console.error(errorMessage)
+
+    const { message, stack, status } = createErrorResponse(errorMessage, error?.stack)
 
     res.status(status).send({ message, success: false, stack })
   }

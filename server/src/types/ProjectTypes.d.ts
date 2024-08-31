@@ -15,3 +15,13 @@ export type AddProjectApiPayload = {
   partnersAndInvestors: Omit<ProjectPartnersAndInvestors, 'id' | 'projectId'>[]
   projectSocials: Omit<ProjectSocials, 'id' | 'projectId'>
 }
+
+export type DeleteProjectApiPayload = {
+  id: string
+}
+
+export type ProjectListResponse = {
+  name: string
+  description: string
+  round: $Enums.ProjectRound
+}[]
