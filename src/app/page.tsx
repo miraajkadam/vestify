@@ -1,9 +1,13 @@
 import Image from 'next/image'
 import styles from './page.module.css'
 
+import Hello from '@/components/Hello'
+
 export default function Home() {
   return (
     <div className={styles.page}>
+      <Hello />
+
       <main className={styles.main}>
         <Image
           className={styles.logo}
@@ -89,8 +93,6 @@ export default function Home() {
           />
           Go to nextjs.org →
         </a>
-
-        <h1>Initial Demo component</h1>
       </footer>
     </div>
   )
