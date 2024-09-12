@@ -15,35 +15,29 @@ import {
 
 export function SideNavbar() {
   return (
-    <nav className='flex flex-col h-screen w-16 bg-gray-100 dark:bg-gray-800'>
-      <div className='flex-1 flex flex-col items-center space-y-4'>
+    <nav className='flex flex-col h-screen w-20 bg-indigo-600 p-4'>
+      <div className='flex-1 flex flex-col items-center space-y-6'>
         {/* Logo */}
-        <div className='p-4'>
+        <div className='p-2'>
           <svg
-            className='h-8 w-8 text-blue-600 transition-transform duration-200 ease-in-out hover:scale-110'
+            className='h-8 w-8 text-white'
             fill='none'
-            height='24'
             stroke='currentColor'
-            strokeLinecap='round'
-            strokeLinejoin='round'
-            strokeWidth='2'
             viewBox='0 0 24 24'
-            width='24'
             xmlns='http://www.w3.org/2000/svg'
           >
-            <path d='M3 9h18v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V9Z' />
-            <path d='m3 9 2.45-4.9A2 2 0 0 1 7.24 3h9.52a2 2 0 0 1 1.8 1.1L21 9' />
-            <path d='M12 3v6' />
+            <path
+              strokeLinecap='round'
+              strokeLinejoin='round'
+              strokeWidth={2}
+              d='M13 10V3L4 14h7v7l9-11h-7z'
+            />
           </svg>
         </div>
 
         {/* Home Icon */}
         <Link href='/dashboard'>
-          <Button
-            variant='ghost'
-            size='icon'
-            className='w-12 h-12 transition-all duration-200 ease-in-out hover:bg-gray-200 dark:hover:bg-gray-700 hover:scale-110 active:scale-95'
-          >
+          <Button variant='ghost' size='icon' className='w-12 h-12 text-white hover:bg-indigo-700'>
             <Home className='h-6 w-6' />
             <span className='sr-only'>Home</span>
           </Button>
@@ -51,11 +45,7 @@ export function SideNavbar() {
 
         {/* Profile Icon (moved to upper part) */}
         <Link href='/profile'>
-          <Button
-            variant='ghost'
-            size='icon'
-            className='w-12 h-12 transition-all duration-200 ease-in-out hover:bg-gray-200 dark:hover:bg-gray-700 hover:scale-110 active:scale-95'
-          >
+          <Button variant='ghost' size='icon' className='w-12 h-12 text-white hover:bg-indigo-700'>
             <User className='h-6 w-6' />
             <span className='sr-only'>Profile</span>
           </Button>
@@ -69,7 +59,7 @@ export function SideNavbar() {
             <Button
               variant='ghost'
               size='icon'
-              className='w-12 h-12 transition-all duration-200 ease-in-out hover:bg-gray-200 dark:hover:bg-gray-700 hover:scale-110 active:scale-95'
+              className='w-12 h-12 text-white hover:bg-indigo-700'
             >
               <Settings className='h-6 w-6' />
               <span className='sr-only'>Settings</span>
@@ -93,7 +83,7 @@ export function SideNavbar() {
               size='icon'
               className='w-12 h-12 rounded-full transition-all duration-200 ease-in-out hover:bg-gray-200 dark:hover:bg-gray-700 hover:scale-110 active:scale-95'
             >
-              <Avatar>
+              <Avatar className='w-12 h-12'>
                 <AvatarImage src='/placeholder-avatar.jpg' alt='@username' />
                 <AvatarFallback>UN</AvatarFallback>
               </Avatar>
