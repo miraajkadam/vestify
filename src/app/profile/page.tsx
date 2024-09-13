@@ -1,31 +1,31 @@
 'use client'
-import React, { useState } from 'react'
+import React from 'react'
 
 // Define your types if necessary (e.g., for the profile info, etc.)
-interface ProfileInfo {
-  name: string
-  account: string
-  kyc: string
-  tags: string[]
-  bigNumber: string
-}
+// interface ProfileInfo {
+//   name: string
+//   account: string
+//   kyc: string
+//   tags: string[]
+//   bigNumber: string
+// }
 
-const initialProfile: ProfileInfo = {
-  name: 'John Doe',
-  account: '123456789',
-  kyc: 'Verified',
-  tags: ['Tag1', 'Tag2', 'Tag3'],
-  bigNumber: '9876543210',
-}
+// const initialProfile: ProfileInfo = {
+//   name: 'John Doe',
+//   account: '123456789',
+//   kyc: 'Verified',
+//   tags: ['Tag1', 'Tag2', 'Tag3'],
+//   bigNumber: '9876543210',
+// }
 
 const Page: React.FC = () => {
-  const [selectedButton, setSelectedButton] = useState<'button1' | 'button2'>('button1')
+  // const [selectedButton, setSelectedButton] = useState<'button1' | 'button2'>('button1')
 
   // Mock data for table based on button
-  const tableData =
-    selectedButton === 'button1'
-      ? ['Data 1A', 'Data 1B', 'Data 1C']
-      : ['Data 2A', 'Data 2B', 'Data 2C']
+  // const tableData =
+  //   selectedButton === 'button1'
+  //     ? ['Data 1A', 'Data 1B', 'Data 1C']
+  //     : ['Data 2A', 'Data 2B', 'Data 2C']
 
   return (
     <div className='h-[956px] w-full bg-white justify-start items-start inline-flex'>
