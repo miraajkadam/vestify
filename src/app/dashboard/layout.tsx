@@ -2,9 +2,9 @@
 
 export default function DashboardLayout({ children }: { children: React.ReactNode }) {
   return (
-    <div className='flex'>
+    <div className='flex bg-gray-100'>
       {/* <SideNavbar /> */}
-      <main className='flex-1 w-[calc(100%-100px)]'>{children}</main>
+      <main className='flex-1 overflow-y-auto'>{children}</main>
     </div>
   )
 }
