@@ -1,5 +1,7 @@
 'use client'
 import React from 'react'
+import Image from 'next/image'
+import logo from '../../../public/icons/user.svg'
 
 // Define your types if necessary (e.g., for the profile info, etc.)
 // interface ProfileInfo {
@@ -28,17 +30,18 @@ const Page: React.FC = () => {
   //     : ['Data 2A', 'Data 2B', 'Data 2C']
 
   return (
-    <div className='h-[956px] w-full bg-white justify-start items-start inline-flex'>
+    <div className='h-[100vh] bg-white justify-start items-start inline-flex w-full overflow-y-scroll'>
       <div className='pt-[35px] pb-8 bg-white flex-col justify-start items-end inline-flex'>
         <div className='px-8 flex-col justify-start items-start flex'>
           <div className='flex-col justify-start items-start gap-[30px] flex'>
             <div className='h-[829.29px] flex-col justify-start items-start gap-[30px] flex'>
+              {/* Navbar */}
               <div className='self-stretch justify-between items-center inline-flex'>
                 <div className='px-[11px] py-[3px] rounded-[20px] border border-[#303138]/20 justify-start items-center gap-3 flex'>
                   <div className="text-[#afafaf] text-[13px] font-medium font-['Inter'] leading-7">
                     Search Investors, allocations, deals..
                   </div>
-                  <div className='w-[18px] h-[18px] pl-[1.69px] pr-[1.72px] pt-[1.69px] pb-[1.72px] justify-center items-center flex' />
+                  <div className='w-[18px] h-[18px] relative' />
                 </div>
                 <div className='justify-start items-center gap-2.5 flex'>
                   <div className='w-[15.36px] h-[15.36px] bg-[#3ede8b] rounded-full shadow' />
@@ -47,31 +50,42 @@ const Page: React.FC = () => {
                   </div>
                 </div>
               </div>
+
+              {/* Profile Section */}
               <div className='self-stretch justify-between items-start inline-flex'>
-                <div className='w-[419.58px] flex-col justify-start items-start gap-[24.90px] inline-flex'>
-                  <div className='justify-start items-center gap-[13.70px] inline-flex'>
-                    <div className='w-[131.18px] h-[131.18px] relative'>
-                      <div className='w-[131.18px] h-[131.18px] left-0 top-0 absolute bg-[#f3f3f3] rounded-xl' />
-                      <div className='w-[76.84px] h-[92.13px] left-[27.17px] top-[19.52px] absolute flex-col justify-center items-center gap-[0.21px] inline-flex' />
+                <div className='w-[419.58px] h-[240.34px] flex-col justify-start items-start gap-[24.90px] inline-flex'>
+                  <div className='w-[395.13px] h-[131.18px] justify-start items-center gap-[13.70px] inline-flex'>
+                    <div className='w-[131.18px] h-[131.18px]  '>
+                      <div className='w-[131.18px] h-[131.18px] bg-[#f3f3f3] rounded-xl flex-col justify-center align-center items-center  inline-flex'>
+                        <Image
+                          src={logo}
+                          alt='Profile Image'
+                          width='76'
+                          height='92'
+                          className=' rounded-xl'
+                        />
+                      </div>
+                      {/* </div> */}
+                      {/* <div className='w-[76.84px] h-[92.13px] left-[27.17px] top-[19.52px] absolute' /> */}
                     </div>
-                    <div className='w-[250.26px] flex-col justify-start items-start gap-[18.68px] inline-flex'>
-                      <div className="text-[#303138] text-[27px] font-bold font-['Urbanist'] leading-[52.89px]">
+                    <div className='w-[250.26px] h-[131.18px] flex-col justify-start items-start gap-[18.68px] inline-flex'>
+                      <div className="w-[227px] h-[19px] text-[#303138] text-[27px] font-bold font-['Urbanist'] leading-[52.89px]">
                         naka@bestify.com
                       </div>
                       <div className='flex-col justify-start items-start gap-[6.23px] flex'>
-                        <div className='p-[6.23px] bg-[#039be5]/10 rounded-[17.43px] justify-start items-center gap-2.5 inline-flex'>
+                        <div className='h-[24.90px] p-[6.23px] bg-[#039be5]/10 rounded-[17.43px] justify-start items-center gap-2.5 inline-flex'>
                           <div className='px-[1.25px] flex-col justify-start items-start gap-[12.45px] inline-flex' />
                           <div className="text-[#039be5] text-[15px] font-bold font-['Urbanist'] leading-[34.86px]">
                             iNakazumi
                           </div>
                         </div>
-                        <div className='p-[6.23px] bg-[#5865f2]/10 rounded-[17.43px] justify-start items-center gap-2.5 inline-flex'>
+                        <div className='w-[99.81px] h-[24.90px] p-[6.23px] bg-[#5865f2]/10 rounded-[17.43px] justify-start items-center gap-2.5 inline-flex'>
                           <div className="text-[#5865f2] text-[15px] font-bold font-['Urbanist'] leading-[34.86px]">
                             Nka9942
                           </div>
                         </div>
                         <div className='justify-start items-center gap-[6.23px] inline-flex'>
-                          <div className='p-[6.23px] bg-[#00b828]/5 rounded-[17.43px] justify-start items-center gap-[11.21px] flex'>
+                          <div className='w-[142.26px] h-[25.79px] p-[6.23px] bg-[#00b828]/5 rounded-[17.43px] justify-start items-center gap-[11.21px] flex'>
                             <div className='px-[2.23px] flex-col justify-start items-center inline-flex' />
                             <div>
                               <span className="text-[#303138] text-[15px] font-bold font-['Urbanist'] leading-[34.86px]">
@@ -87,9 +101,11 @@ const Page: React.FC = () => {
                       </div>
                     </div>
                   </div>
-                  <div className='self-stretch h-[84.25px] flex-col justify-start items-start gap-[12.45px] flex'>
-                    <div className='justify-start items-center gap-[12.45px] inline-flex'>
-                      <div className='p-[6.23px] rounded-[9.96px] border border-[#eeedfd] justify-start items-center gap-[6.23px] flex'>
+
+                  {/* Tabs */}
+                  <div className='w-[419.58px] h-[84.25px] flex-col justify-start items-start gap-[12.45px] flex'>
+                    <div className='w-[211.70px] h-[35.90px] justify-start items-center gap-[12.45px] inline-flex'>
+                      <div className='w-[82.13px] h-[35.90px] p-[6.23px] rounded-[9.96px] border border-[#eeedfd] justify-start items-center gap-[6.23px] flex'>
                         <div className="text-[#303138] text-[15px] font-medium font-['Urbanist'] leading-normal">
                           Deals
                         </div>
@@ -99,7 +115,7 @@ const Page: React.FC = () => {
                           </div>
                         </div>
                       </div>
-                      <div className='p-[6.23px] rounded-[9.96px] border border-[#eeedfd] justify-start items-center gap-[6.23px] flex'>
+                      <div className='w-[117.13px] h-[35.90px] p-[6.23px] rounded-[9.96px] border border-[#eeedfd] justify-start items-center gap-[6.23px] flex'>
                         <div className="text-[#303138] text-[15px] font-medium font-['Urbanist'] leading-normal">
                           OTC trades
                         </div>
@@ -110,8 +126,8 @@ const Page: React.FC = () => {
                         </div>
                       </div>
                     </div>
-                    <div className='self-stretch justify-start items-center gap-[12.45px] inline-flex'>
-                      <div className='p-[6.23px] rounded-[9.96px] border border-[#eeedfd] justify-start items-center gap-[6.23px] flex'>
+                    <div className='w-[419.58px] h-[35.90px] justify-start items-center gap-[12.45px] inline-flex'>
+                      <div className='w-[154.13px] h-[35.90px] p-[6.23px] rounded-[9.96px] border border-[#eeedfd] justify-start items-center gap-[6.23px] flex'>
                         <div className="text-[#303138] text-[15px] font-medium font-['Urbanist'] leading-normal">
                           Invested
                         </div>
@@ -121,7 +137,7 @@ const Page: React.FC = () => {
                           </div>
                         </div>
                       </div>
-                      <div className='p-[6.23px] rounded-[9.96px] border border-[#eeedfd] justify-start items-center gap-[6.23px] flex'>
+                      <div className='w-[218.13px] h-[35.90px] p-[6.23px] rounded-[9.96px] border border-[#eeedfd] justify-start items-center gap-[6.23px] flex'>
                         <div className="text-[#303138] text-[15px] font-medium font-['Urbanist'] leading-normal">
                           Average investment:
                         </div>
@@ -134,32 +150,36 @@ const Page: React.FC = () => {
                     </div>
                   </div>
                 </div>
-                <div className='flex-col justify-start items-start gap-[18.68px] inline-flex'>
-                  <div className="self-stretch text-[#303138] text-[27px] font-bold font-['Urbanist'] leading-[52.89px]">
+
+                {/* Wallets */}
+                <div className='w-[361px] h-[206.35px] flex-col justify-end  items-start gap-[18.68px] inline-flex'>
+                  <div className="w-[361px] h-[19px] text-[#303138] text-[27px] font-bold font-['Urbanist'] leading-[52.89px]">
                     Account wallets
                   </div>
-                  <div className="text-[#303138] text-lg font-bold font-['Urbanist'] leading-[32.85px]">
+                  <div className="w-[118px] h-[13px] text-[#303138] text-lg font-bold font-['Urbanist'] leading-[32.85px]">
                     Used to sign in
                   </div>
-                  <div className='flex-col justify-start items-start gap-[18px] flex'>
-                    <div className="text-[#303138]/70 text-lg font-medium font-['Inter'] leading-[32.85px]">
+                  <div className=' h-[137px] flex-col justify-start items-start gap-[18px] flex'>
+                    <div className="w-[361px] h-[13px] text-[#303138]/70 text-lg font-medium font-['Inter'] leading-[32.85px]">
                       0xa5e9138543b548ajduj5651766a46899
                     </div>
-                    <div className="text-[#303138]/70 text-lg font-medium font-['Urbanist'] leading-[32.85px]">
+                    <div className="w-[316px] h-[13px] text-[#303138]/70 text-lg font-medium font-['Urbanist'] leading-[32.85px]">
                       0xa5e9138543b548ajduj5651766a46899
                     </div>
-                    <div className="text-[#303138]/70 text-lg font-medium font-['Inter'] leading-[32.85px]">
+                    <div className="w-[361px] h-[13px] text-[#303138]/70 text-lg font-medium font-['Inter'] leading-[32.85px]">
                       0xa5e9138543b548ajduj5651766a46899
                     </div>
-                    <div className="text-[#303138]/70 text-lg font-medium font-['Inter'] leading-[32.85px]">
+                    <div className="w-[361px] h-[13px] text-[#303138]/70 text-lg font-medium font-['Inter'] leading-[32.85px]">
                       0xa5e9138543b548ajduj5651766a46899
                     </div>
-                    <div className="text-[#303138]/70 text-lg font-medium font-['Inter'] leading-[32.85px]">
+                    <div className="w-[361px] h-[13px] text-[#303138]/70 text-lg font-medium font-['Inter'] leading-[32.85px]">
                       0xa5e9138543b548ajduj5651766a46899
                     </div>
                   </div>
                 </div>
               </div>
+
+              {/* Deals */}
               <div className='self-stretch h-[494.95px] flex-col justify-start items-center gap-[30px] flex'>
                 <div className='self-stretch h-12 flex-col justify-start items-start flex'>
                   <div className='justify-center items-start gap-[39px] inline-flex'>
@@ -186,7 +206,7 @@ const Page: React.FC = () => {
                     <div className="text-[#afafaf] text-[13px] font-medium font-['Inter'] leading-7">
                       Search deals..
                     </div>
-                    <div className='w-[18px] h-[18px] pl-[1.69px] pr-[1.72px] pt-[1.69px] pb-[1.72px] justify-center items-center flex' />
+                    <div className='w-[18px] h-[18px] relative' />
                   </div>
                   <div className='self-stretch h-[352.95px] flex-col justify-start items-start gap-5 flex'>
                     <div className='w-[1146.93px] h-[11.50px] relative'>
@@ -194,25 +214,25 @@ const Page: React.FC = () => {
                         <div className="text-[#afafaf] text-[15px] font-semibold font-['Urbanist'] capitalize">
                           Deal
                         </div>
-                        <div className='w-2 h-[11px] pl-px pr-[0.57px] pt-[0.37px] pb-[0.16px] flex-col justify-center items-start gap-0.5 inline-flex' />
+                        <div className='w-2 h-[11px] relative' />
                       </div>
                       <div className='h-[11px] left-[284.96px] top-0 absolute justify-start items-center gap-[5px] inline-flex'>
                         <div className="text-[#afafaf] text-[15px] font-semibold font-['Urbanist'] capitalize">
                           Allocation
                         </div>
-                        <div className='w-2 h-[11px] pl-px pr-[0.57px] pt-[0.37px] pb-[0.16px] flex-col justify-center items-start gap-0.5 inline-flex' />
+                        <div className='w-2 h-[11px] relative' />
                       </div>
                       <div className='h-[11px] left-[786.74px] top-0 absolute justify-start items-center gap-[5px] inline-flex'>
                         <div className="text-[#afafaf] text-[15px] font-semibold font-['Urbanist'] capitalize">
                           Contributed
                         </div>
-                        <div className='w-2 h-[11px] pl-px pr-[0.57px] pt-[0.37px] pb-[0.16px] flex-col justify-center items-start gap-0.5 inline-flex' />
+                        <div className='w-2 h-[11px] relative' />
                       </div>
                       <div className='h-[11px] left-[952.33px] top-0 absolute justify-start items-center gap-[5px] inline-flex'>
                         <div className="text-[#afafaf] text-[15px] font-semibold font-['Urbanist'] capitalize">
                           Refunded
                         </div>
-                        <div className='w-2 h-[11px] pl-px pr-[0.57px] pt-[0.37px] pb-[0.16px] flex-col justify-center items-start gap-0.5 inline-flex' />
+                        <div className='w-2 h-[11px] relative' />
                       </div>
                       <div className="left-[430.55px] top-[0.50px] absolute text-[#afafaf] text-[15px] font-semibold font-['Urbanist'] capitalize">
                         Tokens received
