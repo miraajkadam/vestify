@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 // import localFont from 'next/font/local'
-import './globals.css'
-import { SideNavbar } from '../components/ui/SideNavbar'
+import '../globals.css'
+// import { SideNavbar } from '../../components/ui/SideNavbar'
 // import Sidebar from '../components/Sidebar'
 
 // const geistSans = localFont({
@@ -29,7 +29,7 @@ export default function RootLayout({
     <html lang='en'>
       <body className='flex'>
         <main className='flex flex-row overflow-auto bg-gray-50 w-full'>
-          <SideNavbar />
+          {/* <SideNavbar /> */}
           <div className='flex-1'>{children}</div>
         </main>
       </body>
