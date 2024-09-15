@@ -1,89 +1,142 @@
 'use client'
+
 import React, { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 
 const SignupForm: React.FC = () => {
-  const [username, setUsername] = useState('')
-  const [email, setEmail] = useState('')
+  const [email, setEmail] = useState<string>('')
+  const [password, setPassword] = useState<string>('')
+  const [username, setUsername] = useState<string>('')
+  const [loading, setLoading] = useState<boolean>(false)
+  const [error, setError] = useState<string>('')
   const router = useRouter()
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const validateForm = (): boolean => {
+    if (!email || !password || !username) {
+      setError('Please fill in all fields.')
+      return false
+    }
+    // Additional validation logic if needed
+    return true
+  }
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>): Promise<void> => {
     e.preventDefault()
 
-    /**
-          Here you would normally call your API to register the user     
-          For now, we'll use dummy credentials
-        */
+    if (!validateForm()) return
 
-    if (username && email) {
-      console.log('Signup successful:', { username, email })
-      router.push('/dashboard')
-    } else {
-      alert('Please fill in all fields')
+    setLoading(true)
+    setError('')
+
+    try {
+      const response = await fetch('/api/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email, password, username }),
+      })
+
+      if (response.ok) {
+        router.push('/dashboard')
+      } else {
+        const { message } = await response.json()
+        setError(message)
+      }
+    } catch (error) {
+      setError('An error occurred. Please try again later.')
+    } finally {
+      setLoading(false)
     }
   }
 
   return (
-    <div className='flex justify-center items-center min-h-screen bg-gray-100'>
-      <div className='bg-white p-8 rounded-lg shadow-md w-96'>
-        <h2 className='text-2xl font-bold mb-6 text-center'>WELCOME TO MAMBAX</h2>
-        <form onSubmit={handleSubmit}>
-          <div className='mb-4'>
-            <label htmlFor='username' className='block text-sm font-medium text-gray-700'>
-              USERNAME
-            </label>
-            <input
-              type='text'
-              id='username'
-              className='mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50'
-              placeholder='Enter Username'
-              value={username}
-              onChange={e => setUsername(e.target.value)}
-            />
+    <div className='w-[1440px] h-[100vh] relative bg-[#f7f9fc] flex justify-center items-center'>
+      <div className='w-[456px] h-[501px] px-7 py-8 left-[492px]   bg-white rounded-[10px] border border-[#d0d4dd]'>
+        <div className='w-[400px] h-[437px] flex-col justify-start items-center gap-8 flex'>
+          <div className='w-[400px] h-[34px] flex-col justify-start items-center flex'>
+            <div className="text-[#101828] text-[28px] font-semibold font-['Urbanist'] leading-[33.60px]">
+              WELCOME TO MAMBAX
+            </div>
           </div>
-          <div className='mb-6'>
-            <label htmlFor='email' className='block text-sm font-medium text-gray-700'>
-              Email
-            </label>
-            <input
-              type='email'
-              id='email'
-              className='mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50'
-              placeholder='Enter Email'
-              value={email}
-              onChange={e => setEmail(e.target.value)}
-            />
-          </div>
-          <div className='flex space-x-4 mb-6'>
-            <button
-              type='button'
-              className='flex-1 py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-blue-600 bg-blue-100 hover:bg-blue-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500'
-            >
-              <img src='/twitter-icon.png' alt='Twitter' className='inline-block mr-2 h-5 w-5' />
-              Twitter
-            </button>
-            <button
-              type='button'
-              className='flex-1 py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-indigo-600 bg-indigo-100 hover:bg-indigo-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500'
-            >
-              <img src='/discord-icon.png' alt='Discord' className='inline-block mr-2 h-5 w-5' />
-              Discord
-            </button>
-          </div>
-          <button
-            type='submit'
-            className='w-full py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500'
+          <form
+            onSubmit={handleSubmit}
+            className='w-[400px] h-[371px] flex-col justify-start items-center gap-[30px] flex'
           >
-            SIGN UP
-          </button>
-        </form>
-        <p className='mt-4 text-center text-sm text-gray-600'>
-          Already have an account?{' '}
-          <Link href='/auth/login' className='font-medium text-indigo-600 hover:text-indigo-500'>
-            Log in
-          </Link>
-        </p>
+            <div className='self-stretch h-[371px] flex-col justify-start items-start gap-8 flex'>
+              <div className='w-[400px] flex-col gap-6'>
+                {/* <div className='w-full flex-col gap-2'>
+                  <label className="text-[#101828] text-sm font-medium font-['Urbanist'] leading-tight">
+                    USERNAME
+                  </label>
+                  <input
+                    type='text'
+                    className="w-full h-14 p-4 bg-white rounded-md border border-[#d0d5dd]/60 text-[#98a1b2] text-sm font-normal font-['Urbanist'] leading-tight"
+                    placeholder='Enter Username'
+                    value={username}
+                    onChange={e => setUsername(e.target.value)}
+                  />
+                </div> */}
+                <div className='w-full flex-col gap-2'>
+                  <label className="text-[#101828] text-sm font-medium font-['Urbanist'] leading-tight">
+                    Email
+                  </label>
+                  <input
+                    type='email'
+                    className="w-full h-14 p-4 bg-white rounded-md border border-[#d0d5dd]/60 text-[#98a1b2] text-sm font-normal font-['Urbanist'] leading-tight"
+                    placeholder='Enter Email'
+                    value={email}
+                    onChange={e => setEmail(e.target.value)}
+                  />
+                </div>
+                <div className='w-full flex-col gap-2'>
+                  <label className="text-[#101828] text-sm font-medium font-['Urbanist'] leading-tight">
+                    Password
+                  </label>
+                  <input
+                    type='password'
+                    className="w-full h-14 p-4 bg-white rounded-md border border-[#d0d5dd]/60 text-[#98a1b2] text-sm font-normal font-['Urbanist'] leading-tight"
+                    placeholder='Enter Password'
+                    value={password}
+                    onChange={e => setPassword(e.target.value)}
+                  />
+                </div>
+              </div>
+              <div className='w-full flex justify-between gap-4'>
+                <div className='w-[200px] h-[60px] bg-[#ecf9ff] rounded-[10px] flex items-center justify-center gap-[5px]'>
+                  <div className='w-10 h-10 relative' />
+                  <div className="text-black text-base font-semibold font-['Urbanist'] leading-normal">
+                    Twitter
+                  </div>
+                </div>
+                <div className='w-[200px] h-[60px] bg-[#f1f2ff] rounded-[10px] flex items-center justify-center gap-[5px]'>
+                  <div className='w-10 h-10 relative' />
+                  <div className="text-black text-base font-semibold font-['Urbanist'] leading-normal">
+                    Discord
+                  </div>
+                </div>
+              </div>
+              <button
+                type='submit'
+                className="w-full h-[55px] bg-indigo-600 rounded-lg text-white text-base font-semibold font-['Urbanist'] leading-normal flex justify-center items-center"
+                disabled={loading}
+              >
+                {loading ? 'Signing up...' : 'SIGN UP'}
+              </button>
+              {error && <p className='text-red-600 text-center'>{error}</p>}
+            </div>
+            <p className='text-center text-sm text-gray-600'>
+              Already have an account?
+              <Link
+                href='/auth/login'
+                className='font-medium text-indigo-600 hover:text-indigo-500'
+              >
+                Log in
+              </Link>
+            </p>
+          </form>
+        </div>
       </div>
     </div>
   )
