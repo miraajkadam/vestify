@@ -3,6 +3,7 @@
 import React, { useState, FormEvent } from 'react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
+import Cookies from 'js-cookie'
 
 const LoginForm: React.FC = () => {
   const [email, setEmail] = useState<string>('')
@@ -28,8 +29,10 @@ const LoginForm: React.FC = () => {
     setLoading(true)
     setError('')
 
+    const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000'
+
     try {
-      const response = await fetch('http://localhost:3000/api/auth/login', {
+      const response = await fetch(`${apiUrl}/api/auth/login`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -37,11 +40,13 @@ const LoginForm: React.FC = () => {
         body: JSON.stringify({ email, password }),
       })
 
-      if (response.ok) {
-        // Successful login
+      const data = await response.json()
+
+      if (response.ok && data.success) {
+        // Store the access token in a cookie
+        Cookies.set('access_token', data.data.access_token, { expires: 7 }) // Expires in 7 days
         router.push('/dashboard')
       } else {
-        const data = await response.json()
         setError(data.message || 'Invalid credentials')
       }
     } catch (error) {

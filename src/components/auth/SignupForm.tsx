@@ -3,6 +3,7 @@
 import React, { useState, ChangeEvent, FormEvent } from 'react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
+import Cookies from 'js-cookie'
 
 interface FormData {
   username: string
@@ -55,10 +56,13 @@ const SignupForm: React.FC = () => {
         body: JSON.stringify({ ...formData, userType: 'USER' }),
       })
 
-      if (response.ok) {
+      const data = await response.json()
+
+      if (response.ok && data.success) {
+        // Store the access token in a cookie
+        Cookies.set('access_token', data.data.access_token, { expires: 7 }) // Expires in 7 days
         router.push('/dashboard')
       } else {
-        const data = await response.json()
         setError(data.message || 'An error occurred during signup.')
       }
     } catch (error) {
