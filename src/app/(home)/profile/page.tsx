@@ -1,5 +1,5 @@
 'use client'
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import Image from 'next/image'
 import logo from '../../../public/icons/user.svg'
 
@@ -20,7 +20,50 @@ import logo from '../../../public/icons/user.svg'
 //   bigNumber: '9876543210',
 // }
 
+// Define a TypeScript interface for your data structure
+interface ProjectData {
+  id: number
+  name: string
+  // Add other fields based on your API response
+}
+
+interface ErrorResponse {
+  message: string
+}
+
 const Page: React.FC = () => {
+  const [data, setData] = useState<ProjectData[] | null>(null) // Adjust type according to your data
+  const [error, setError] = useState<string | null>(null)
+  const [loading, setLoading] = useState<boolean>(true)
+
+  useEffect(() => {
+    // Define an async function inside the effect
+    const fetchData = async () => {
+      try {
+        const response = await fetch('http://localhost:3000/api/project/getAll', {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        })
+
+        if (response.ok) {
+          const result: ProjectData[] = await response.json()
+          setData(result) // Set the fetched data
+        } else {
+          const errorData: ErrorResponse = await response.json()
+          setError(errorData.message) // Set the error message
+        }
+      } catch (error) {
+        setError('An error occurred. Please try again later.') // Set generic error message
+      } finally {
+        setLoading(false) // Set loading to false when done
+      }
+    }
+
+    // Call the async function
+    fetchData()
+  }, []) // Empty dependency array means this effect runs once on mount
   // const [selectedButton, setSelectedButton] = useState<'button1' | 'button2'>('button1')
 
   // Mock data for table based on button
@@ -28,6 +71,8 @@ const Page: React.FC = () => {
   //   selectedButton === 'button1'
   //     ? ['Data 1A', 'Data 1B', 'Data 1C']
   //     : ['Data 2A', 'Data 2B', 'Data 2C']
+
+  console.log(data)
 
   return (
     <div className='h-[100vh] bg-white justify-start items-start inline-flex w-full overflow-y-scroll'>
