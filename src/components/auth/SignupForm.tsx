@@ -52,7 +52,7 @@ const SignupForm: React.FC = () => {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ ...formData, userType: 'USER' }),
+        body: JSON.stringify({ ...formData, accountType: 'USER' }),
       })
 
       if (response.ok) {
