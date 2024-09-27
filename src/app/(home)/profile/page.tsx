@@ -75,11 +75,11 @@ const Page: React.FC = () => {
   console.log(data)
 
   return (
-    <div className='h-[100vh] bg-white justify-start items-start inline-flex w-full overflow-y-scroll'>
-      <div className='pt-[35px] pb-8 bg-white flex-col justify-start items-end inline-flex'>
-        <div className='ml-8   '>
+    <div className='h-[100vh] bg-white justify-start items-start inline-flex w-[100%] overflow-y-scroll '>
+      <div className='p-[32px] w-full pb-8 bg-white flex-col justify-start  inline-flex'>
+        <div className='  '>
           <div>
-            <div className='h-[829.29px] flex-col justify-start items-start gap-[30px] flex'>
+            <div className='h-[829.29px] w-full  flex-col justify-start items-start gap-[30px] flex'>
               {/* Navbar */}
               <div className='self-stretch justify-between items-center inline-flex'>
                 <div className='px-[11px] py-[3px] rounded-[20px] border border-[#303138]/20 justify-start items-center gap-3 flex'>
@@ -90,16 +90,16 @@ const Page: React.FC = () => {
                 </div>
                 <div className='justify-start items-center gap-2.5 flex'>
                   <div className='w-[15.36px] h-[15.36px] bg-[#3ede8b] rounded-full shadow' />
-                  <div className="text-[#303138] text-sm font-medium font-['Inter'] leading-7">
+                  <div className="text-[#303138] text-sm font-medium font-['Inter'] leading-7 ml-2">
                     0x8855.,87a4
                   </div>
                 </div>
               </div>
 
               {/* Profile Section */}
-              <div className='self-stretch justify-between items-start inline-flex'>
-                <div className='w-[419.58px] h-[240.34px] flex-col justify-start items-start gap-[24.90px] inline-flex'>
-                  <div className='w-[395.13px] h-[131.18px] justify-start items-center gap-[13.70px] inline-flex'>
+              <div className='self-stretch w-full justify-between items-start inline-flex'>
+                <div className=' h-[240.34px] flex-col justify-start items-start gap-[24.90px] inline-flex'>
+                  <div className='w-[419.26px] h-[131.18px] justify-start items-center gap-[13.70px] inline-flex'>
                     <div className='w-[131.18px] h-[131.18px]  '>
                       <div className='w-[131.18px] h-[131.18px] bg-[#f3f3f3] rounded-xl flex-col justify-center align-center items-center  inline-flex'>
                         <Image
@@ -148,7 +148,7 @@ const Page: React.FC = () => {
                   </div>
 
                   {/* Tabs */}
-                  <div className='w-[419.58px] h-[84.25px] flex-col justify-start items-start gap-[12.45px] flex'>
+                  <div className='w-full h-[84.25px] flex-col justify-start items-start gap-[12.45px] flex'>
                     <div className='w-[211.70px] h-[35.90px] justify-start items-center gap-[12.45px] inline-flex'>
                       <div className='w-[82.13px] h-[35.90px] p-[6.23px] rounded-[9.96px] border border-[#eeedfd] justify-start items-center gap-[6.23px] flex'>
                         <div className="text-[#303138] text-[15px] font-medium font-['Urbanist'] leading-normal">
@@ -204,7 +204,7 @@ const Page: React.FC = () => {
                   <div className=" h-[13px] text-[#303138] text-lg font-bold font-['Urbanist'] leading-[32.85px]">
                     Used to sign in
                   </div>
-                  <div className=' h-[137px] w-[419.58px] flex-col justify-start align-end items-end  flex'>
+                  <div className=' h-[137px] w-[300.58px] flex-col justify-start align-end items-end  flex'>
                     <div className="  text-[#303138]/70 text-lg font-medium font-['Inter'] leading-[32.85px]">
                       0xa5e9138543b548ajduj5651766a46899 0xa5e9138543b548ajduj5651766a46899
                       0xa5e9138543b548ajduj5651766a46899 0xa5e9138543b548ajduj5651766a46899
