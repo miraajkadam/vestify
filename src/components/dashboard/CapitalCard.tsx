@@ -17,7 +17,7 @@ export function CapitalCard({ name, description, price, interval }: CapitalCardP
   const toggleExpand = () => setIsExpanded(!isExpanded)
 
   return (
-    <div className='bg-white p-5 rounded-3xl shadow-md border border-gray-200 flex flex-col h-full'>
+    <div className='w-[315px] bg-white p-5 rounded-3xl border border-gray-300 flex flex-col h-full'>
       <div className='flex justify-between items-start mb-4'>
         <div className='bg-blue-500 rounded-full p-2'>
           <Twitter className='h-5 w-5 text-white' />

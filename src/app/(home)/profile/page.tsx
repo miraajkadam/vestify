@@ -36,6 +36,28 @@ const Page: React.FC = () => {
   const [error, setError] = useState<string | null>(null)
   const [loading, setLoading] = useState<boolean>(true)
 
+  const dealsData = [
+    {
+      deal: 'Deal 1',
+      allocation: '1000',
+      contributed: '800',
+      refunded: '200',
+      tokensReceived: '100',
+      receivingEVM: 'EVM1',
+      otc: 'Yes',
+    },
+    {
+      deal: 'Deal 2',
+      allocation: '2000',
+      contributed: '1500',
+      refunded: '500',
+      tokensReceived: '200',
+      receivingEVM: 'EVM2',
+      otc: 'No',
+    },
+    // Add more deals as needed
+  ]
+
   useEffect(() => {
     // Define an async function inside the effect
     const fetchData = async () => {
@@ -113,25 +135,24 @@ const Page: React.FC = () => {
                       {/* </div> */}
                       {/* <div className='w-[76.84px] h-[92.13px] left-[27.17px] top-[19.52px] absolute' /> */}
                     </div>
-                    <div className='w-[250.26px] h-[131.18px] flex-col justify-start items-start gap-[18.68px] inline-flex'>
-                      <div className="w-[227px] h-[19px] text-[#303138] text-[27px] font-bold font-['Urbanist'] leading-[52.89px]">
+                    <div className='w-[250.26px]   h-[131.18px] flex-col justify-start items-start gap-[18.68px] inline-flex'>
+                      <text className=" h-[19px] mb-[6.23px] text-[#303138] text-[27px] font-bold font-['Urbanist'] leading-[52.89px]">
                         naka@bestify.com
-                      </div>
+                      </text>
                       <div className='flex-col justify-start items-start gap-[6.23px] flex'>
-                        <div className='h-[24.90px] p-[6.23px] bg-[#039be5]/10 rounded-[17.43px] justify-start items-center gap-2.5 inline-flex'>
-                          <div className='px-[1.25px] flex-col justify-start items-start gap-[12.45px] inline-flex' />
-                          <div className="text-[#039be5] text-[15px] font-bold font-['Urbanist'] leading-[34.86px]">
+                        <div className=' h-[24.90px] p-[6.23px] bg-[#039be5]/10 rounded-[17.43px] justify-start items-center gap-2.5 inline-flex'>
+                          <text className="text-[#5865f2] text-[15px] font-bold font-['Urbanist'] leading-[34.86px]">
                             iNakazumi
-                          </div>
+                          </text>
                         </div>
-                        <div className='w-[99.81px] h-[24.90px] p-[6.23px] bg-[#5865f2]/10 rounded-[17.43px] justify-start items-center gap-2.5 inline-flex'>
-                          <div className="text-[#5865f2] text-[15px] font-bold font-['Urbanist'] leading-[34.86px]">
+                        <div className=' h-[24.90px] p-[6.23px] bg-[#5865f2]/10 rounded-[17.43px] justify-start items-center gap-2.5 inline-flex'>
+                          <text className="text-[#5865f2] text-[15px] font-bold font-['Urbanist'] leading-[34.86px]">
                             Nka9942
-                          </div>
+                          </text>
                         </div>
                         <div className='justify-start items-center gap-[6.23px] inline-flex'>
-                          <div className='w-[142.26px] h-[25.79px] p-[6.23px] bg-[#00b828]/5 rounded-[17.43px] justify-start items-center gap-[11.21px] flex'>
-                            <div className='px-[2.23px] flex-col justify-start items-center inline-flex' />
+                          <div className=' h-[25.79px] p-[6.23px] bg-[#00b828]/5 rounded-[17.43px] justify-start items-center gap-[11.21px] flex'>
+                            <div className=' flex-col justify-start items-center inline-flex' />
                             <div>
                               <span className="text-[#303138] text-[15px] font-bold font-['Urbanist'] leading-[34.86px]">
                                 KYC:{' '}
@@ -150,43 +171,43 @@ const Page: React.FC = () => {
                   {/* Tabs */}
                   <div className='w-full h-[84.25px] flex-col justify-start items-start gap-[12.45px] flex'>
                     <div className='w-[211.70px] h-[35.90px] justify-start items-center gap-[12.45px] inline-flex'>
-                      <div className='w-[82.13px] h-[35.90px] p-[6.23px] rounded-[9.96px] border border-[#eeedfd] justify-start items-center gap-[6.23px] flex'>
+                      <div className=' h-[35.90px] p-[6.23px] rounded-[9.96px] border border-[#eeedfd] justify-start items-center gap-[6.23px] flex'>
                         <div className="text-[#303138] text-[15px] font-medium font-['Urbanist'] leading-normal">
                           Deals
                         </div>
-                        <div className='p-[6.23px] bg-[#eeedfd] rounded-md justify-center items-center gap-[12.45px] flex'>
+                        <div className='m-[4px] p-[3px]  bg-[#eeedfd] rounded-md justify-center items-center gap-[12.45px] flex'>
                           <div className="text-indigo-600 text-[15px] font-semibold font-['Urbanist'] leading-normal">
                             15
                           </div>
                         </div>
                       </div>
-                      <div className='w-[117.13px] h-[35.90px] p-[6.23px] rounded-[9.96px] border border-[#eeedfd] justify-start items-center gap-[6.23px] flex'>
+                      <div className=' h-[35.90px] p-[6.23px] rounded-[9.96px] border border-[#eeedfd] justify-start items-center gap-[6.23px] flex'>
                         <div className="text-[#303138] text-[15px] font-medium font-['Urbanist'] leading-normal">
                           OTC trades
                         </div>
-                        <div className='p-[6.23px] bg-[#eeedfd] rounded-md justify-center items-center gap-[12.45px] flex'>
+                        <div className='m-[4px] p-[3px] bg-[#eeedfd] rounded-md justify-center items-center gap-[12.45px] flex'>
                           <div className="text-indigo-600 text-[15px] font-semibold font-['Urbanist'] leading-normal">
                             5
                           </div>
                         </div>
                       </div>
                     </div>
-                    <div className='w-[419.58px] h-[35.90px] justify-start items-center gap-[12.45px] inline-flex'>
-                      <div className='w-[154.13px] h-[35.90px] p-[6.23px] rounded-[9.96px] border border-[#eeedfd] justify-start items-center gap-[6.23px] flex'>
+                    <div className=' h-[35.90px] justify-start items-center gap-[12.45px] inline-flex'>
+                      <div className=' h-[35.90px] p-[6.23px] rounded-[9.96px] border border-[#eeedfd] justify-start items-center gap-[6.23px] flex'>
                         <div className="text-[#303138] text-[15px] font-medium font-['Urbanist'] leading-normal">
                           Invested
                         </div>
-                        <div className='p-[6.23px] bg-[#eeedfd] rounded-md justify-center items-center gap-[12.45px] flex'>
+                        <div className='m-[4px] p-[3px] bg-[#eeedfd] rounded-md justify-center items-center gap-[12.45px] flex'>
                           <div className="text-indigo-600 text-[15px] font-semibold font-['Urbanist'] leading-normal">
                             $6,324.00
                           </div>
                         </div>
                       </div>
-                      <div className='w-[218.13px] h-[35.90px] p-[6.23px] rounded-[9.96px] border border-[#eeedfd] justify-start items-center gap-[6.23px] flex'>
+                      <div className=' h-[35.90px] p-[6.23px] rounded-[9.96px] border border-[#eeedfd] justify-start items-center gap-[6.23px] flex'>
                         <div className="text-[#303138] text-[15px] font-medium font-['Urbanist'] leading-normal">
                           Average investment:
                         </div>
-                        <div className='p-[6.23px] bg-[#eeedfd] rounded-md justify-center items-center gap-[12.45px] flex'>
+                        <div className='m-[4px] p-[3px] bg-[#eeedfd] rounded-md justify-center items-center gap-[12.45px] flex'>
                           <div className="text-indigo-600 text-[15px] font-semibold font-['Urbanist'] leading-normal">
                             $421.60
                           </div>
@@ -215,80 +236,110 @@ const Page: React.FC = () => {
               </div>
 
               {/* Deals */}
-              <div className='self-stretch h-[494.95px] flex-col justify-start items-center gap-[30px] flex'>
+              <div className='w-[100%] h-[494.95px] flex-col justify-start items-center gap-[30px] flex'>
                 <div className='self-stretch h-12 flex-col justify-start items-start flex'>
                   <div className='justify-center items-start gap-[39px] inline-flex'>
-                    <div className='px-[15px] pt-[15px] pb-5 bg-[#f7f7ff] rounded-tl-[10px] rounded-tr-[10px] justify-center items-center gap-2.5 flex'>
-                      <div className='justify-center items-center gap-2.5 flex'>
+                    <div className=' p-[10px] bg-[#f7f7ff] rounded-tl-[10px] rounded-tr-[10px] justify-center items-center gap-2.5 flex'>
+                      <div className='justify-center items-center  flex'>
                         <div className="text-[#7870fc] text-lg font-semibold font-['Urbanist'] capitalize">
                           deals
                         </div>
                       </div>
                     </div>
-                    <div className='py-[15px] justify-center items-center gap-2.5 flex'>
+                    <div className='p-[10px] justify-center items-center flex'>
                       <div className="text-[#505050] text-lg font-semibold font-['Urbanist'] capitalize">
                         Compliance
                       </div>
                     </div>
                   </div>
-                  <div className='w-[1296px] h-[0px] relative'>
-                    <div className='w-[1296px] h-[0px] left-0 top-0 absolute border border-[#e1e1e1]'></div>
+                  <div className='w-full h-[0px] relative'>
+                    <div className='w-full h-[0px] left-0 top-0 absolute border border-[#e1e1e1]'></div>
                     <div className='w-[75px] h-[0px] left-0 top-0 absolute border-2 border-[#7870fc]'></div>
                   </div>
                 </div>
-                <div className='h-[416.95px] flex-col justify-start items-end gap-[30px] flex'>
+
+                <div className='w-full px-[20px]  flex-col justify-start items-end gap-[30px] flex'>
                   <div className='px-[11px] py-[3px] rounded-[20px] border border-[#303138]/20 justify-start items-center gap-20 inline-flex'>
                     <div className="text-[#afafaf] text-[13px] font-medium font-['Inter'] leading-7">
                       Search deals..
                     </div>
                     <div className='w-[18px] h-[18px] relative' />
                   </div>
-                  <div className='self-stretch h-[352.95px] flex-col justify-start items-start gap-5 flex'>
-                    <div className='w-[1146.93px] h-[11.50px] relative'>
-                      <div className='h-[11px] left-0 top-0 absolute justify-start items-center gap-[5px] inline-flex'>
-                        <div className="text-[#afafaf] text-[15px] font-semibold font-['Urbanist'] capitalize">
-                          Deal
-                        </div>
-                        <div className='w-2 h-[11px] relative' />
-                      </div>
-                      <div className='h-[11px] left-[284.96px] top-0 absolute justify-start items-center gap-[5px] inline-flex'>
-                        <div className="text-[#afafaf] text-[15px] font-semibold font-['Urbanist'] capitalize">
-                          Allocation
-                        </div>
-                        <div className='w-2 h-[11px] relative' />
-                      </div>
-                      <div className='h-[11px] left-[786.74px] top-0 absolute justify-start items-center gap-[5px] inline-flex'>
-                        <div className="text-[#afafaf] text-[15px] font-semibold font-['Urbanist'] capitalize">
-                          Contributed
-                        </div>
-                        <div className='w-2 h-[11px] relative' />
-                      </div>
-                      <div className='h-[11px] left-[952.33px] top-0 absolute justify-start items-center gap-[5px] inline-flex'>
-                        <div className="text-[#afafaf] text-[15px] font-semibold font-['Urbanist'] capitalize">
-                          Refunded
-                        </div>
-                        <div className='w-2 h-[11px] relative' />
-                      </div>
-                      <div className="left-[430.55px] top-[0.50px] absolute text-[#afafaf] text-[15px] font-semibold font-['Urbanist'] capitalize">
-                        Tokens received
-                      </div>
-                      <div className="left-[588.15px] top-[0.50px] absolute text-[#afafaf] text-[15px] font-semibold font-['Urbanist'] capitalize">
-                        receiving EVM
-                      </div>
-                      <div className="left-[1115.93px] top-[0.50px] absolute text-[#afafaf] text-[15px] font-semibold font-['Urbanist'] capitalize">
-                        OTC
-                      </div>
+
+                  <div className='w-full '>
+                    <div className='w-full h-auto relative grid grid-cols-8 items-center text-[#afafaf] text-[15px] font-semibold gap-[10px]'>
+                      <div className='col-span-2'>Deal</div>
+                      <div>Allocation</div>
+                      <div>Tokens received</div>
+                      <div>Receiving EVM</div>
+
+                      <div>Contributed</div>
+                      <div>Refunded</div>
+                      <div>OTC</div>
+
+                      {dealsData.map((item, index) => (
+                        <React.Fragment key={index}>
+                          <div className='h-[55.36px] col-span-2 flex justify-start items-center'>
+                            <div className='w-[55.36px] h-[55.36px] bg-[#d9d9d9] rounded-[10px]' />
+                            <div className=" ml-4 text-[#303138] text-lg font-bold font-['Urbanist'] leading-[32.85px]">
+                              Project Universal
+                            </div>
+                          </div>
+                          <div className=" text-[#505050] text-lg font-bold font-['Urbanist'] leading-[32.85px]">
+                            $497.00
+                          </div>
+                          <div className=''>
+                            <div className="text-[#303138] text-lg font-extrabold font-['Urbanist'] leading-[32.85px]">
+                              0 UNI
+                            </div>
+                            {/* <div className="self-stretch text-[#afafaf] text-[17px] font-semibold font-['Urbanist'] leading-[32.85px]">
+                              165.67 UNI
+                            </div> */}
+                          </div>
+                          <div className=" text-[#505050] text-lg font-bold font-['Urbanist'] leading-[32.85px]">
+                            0x8855...87a4
+                          </div>
+                          <div className=''>
+                            <span className="text-[#00b828] text-lg font-bold font-['Urbanist'] leading-[32.85px]">
+                              +$3.00
+                            </span>
+                            <span className="text-[#303138] text-lg font-bold font-['Urbanist'] leading-[32.85px]">
+                              {' '}
+                              (3)
+                            </span>
+                          </div>
+                          <div className=''>
+                            <span className="text-[#ff0004] text-lg font-bold font-['Urbanist'] leading-[32.85px]">
+                              -$2.00
+                            </span>
+                            <span className="text-[#303138] text-lg font-bold font-['Urbanist'] leading-[32.85px]">
+                              {' '}
+                              (3)
+                            </span>
+                          </div>
+                          <div className=''>
+                            <span className="text-[#ff0004] text-lg font-bold font-['Urbanist'] leading-[32.85px]">
+                              -$1,004.00
+                            </span>
+                            <span className="text-[#303138] text-lg font-bold font-['Urbanist'] leading-[32.85px]">
+                              {' '}
+                              (9)
+                            </span>
+                          </div>
+                        </React.Fragment>
+                      ))}
                     </div>
+                    {/*
                     <div className='self-stretch h-[321.45px] flex-col justify-start items-start gap-[25px] flex'>
                       <div className='w-[1234.93px] h-[0px] border border-[#e1e1e1]'></div>
                       <div className='w-[1230.93px] h-[55.36px] relative'>
-                        <div className='h-[55.36px] left-0 top-0 absolute justify-start items-center gap-[15px] inline-flex'>
+                        <div className='h-[55.36px]  absolute justify-start items-center gap-[15px] inline-flex'>
                           <div className='w-[55.36px] h-[55.36px] bg-[#d9d9d9] rounded-[10px]' />
                           <div className="text-[#303138] text-lg font-bold font-['Urbanist'] leading-[32.85px]">
                             Project Universal
                           </div>
                         </div>
-                        <div className="left-[284.96px] top-[21.18px] absolute text-[#505050] text-lg font-bold font-['Urbanist'] leading-[32.85px]">
+                        <div className="left-[284.96px] top-[16.18px] absolute text-[#505050] text-lg font-bold font-['Urbanist'] leading-[32.85px]">
                           $497.00
                         </div>
                         <div className="left-[588.15px] top-[21.18px] absolute text-[#505050] text-lg font-bold font-['Urbanist'] leading-[32.85px]">
@@ -330,20 +381,21 @@ const Page: React.FC = () => {
                           </div>
                         </div>
                       </div>
-                      <div className='w-[1230.93px] h-[55.36px] relative'>
-                        <div className='h-[55.36px] left-0 top-0 absolute justify-start items-center gap-[15px] inline-flex'>
+
+                      <div className='w-[100%] h-[55.36px] relative flex items-center justify-between p-1'>
+                        <div className='h-[55.36px]  flex  '>
                           <div className='w-[55.36px] h-[55.36px] bg-[#d9d9d9] rounded-[10px]' />
                           <div className="text-[#303138] text-lg font-bold font-['Urbanist'] leading-[32.85px]">
                             Project Universal
                           </div>
                         </div>
-                        <div className="left-[284.96px] top-[21.18px] absolute text-[#505050] text-lg font-bold font-['Urbanist'] leading-[32.85px]">
+                        <div className=" text-[#505050] text-lg font-bold font-['Urbanist'] leading-[32.85px]">
                           $497.00
                         </div>
-                        <div className="left-[588.15px] top-[21.18px] absolute text-[#505050] text-lg font-bold font-['Urbanist'] leading-[32.85px]">
+                        <div className="  text-[#505050] text-lg font-bold font-['Urbanist'] leading-[32.85px]">
                           0x8855...87a4
                         </div>
-                        <div className='left-[786.74px] top-[21.18px] absolute'>
+                        <div className=''>
                           <span className="text-[#00b828] text-lg font-bold font-['Urbanist'] leading-[32.85px]">
                             +$3.00
                           </span>
@@ -352,7 +404,7 @@ const Page: React.FC = () => {
                             (3)
                           </span>
                         </div>
-                        <div className='left-[952.33px] top-[21.18px] absolute'>
+                        <div className=' '>
                           <span className="text-[#ff0004] text-lg font-bold font-['Urbanist'] leading-[32.85px]">
                             -$2.00
                           </span>
@@ -361,7 +413,7 @@ const Page: React.FC = () => {
                             (3)
                           </span>
                         </div>
-                        <div className='left-[1115.93px] top-[21.18px] absolute'>
+                        <div className=' '>
                           <span className="text-[#ff0004] text-lg font-bold font-['Urbanist'] leading-[32.85px]">
                             -$1,004.00
                           </span>
@@ -377,107 +429,9 @@ const Page: React.FC = () => {
                           <div className="self-stretch text-[#afafaf] text-[17px] font-semibold font-['Urbanist'] leading-[32.85px]">
                             165.67 UNI
                           </div>
-                        </div>
-                      </div>
-                      <div className='w-[1230.93px] h-[55.36px] relative'>
-                        <div className='h-[55.36px] left-0 top-0 absolute justify-start items-center gap-[15px] inline-flex'>
-                          <div className='w-[55.36px] h-[55.36px] bg-[#d9d9d9] rounded-[10px]' />
-                          <div className="text-[#303138] text-lg font-bold font-['Urbanist'] leading-[32.85px]">
-                            Project Universal
-                          </div>
-                        </div>
-                        <div className="left-[284.96px] top-[21.18px] absolute text-[#505050] text-lg font-bold font-['Urbanist'] leading-[32.85px]">
-                          $497.00
-                        </div>
-                        <div className="left-[588.15px] top-[21.18px] absolute text-[#505050] text-lg font-bold font-['Urbanist'] leading-[32.85px]">
-                          0x8855...87a4
-                        </div>
-                        <div className='left-[786.74px] top-[21.18px] absolute'>
-                          <span className="text-[#00b828] text-lg font-bold font-['Urbanist'] leading-[32.85px]">
-                            +$3.00
-                          </span>
-                          <span className="text-[#303138] text-lg font-bold font-['Urbanist'] leading-[32.85px]">
-                            {' '}
-                            (3)
-                          </span>
-                        </div>
-                        <div className='left-[952.33px] top-[21.18px] absolute'>
-                          <span className="text-[#ff0004] text-lg font-bold font-['Urbanist'] leading-[32.85px]">
-                            -$2.00
-                          </span>
-                          <span className="text-[#303138] text-lg font-bold font-['Urbanist'] leading-[32.85px]">
-                            {' '}
-                            (3)
-                          </span>
-                        </div>
-                        <div className='left-[1115.93px] top-[21.18px] absolute'>
-                          <span className="text-[#ff0004] text-lg font-bold font-['Urbanist'] leading-[32.85px]">
-                            -$1,004.00
-                          </span>
-                          <span className="text-[#303138] text-lg font-bold font-['Urbanist'] leading-[32.85px]">
-                            {' '}
-                            (9)
-                          </span>
-                        </div>
-                        <div className='w-[79px] h-[35px] left-[430.55px] top-[10.18px] absolute flex-col justify-start items-start gap-2.5 inline-flex'>
-                          <div className="text-[#303138] text-lg font-extrabold font-['Urbanist'] leading-[32.85px]">
-                            0 UNI
-                          </div>
-                          <div className="self-stretch text-[#afafaf] text-[17px] font-semibold font-['Urbanist'] leading-[32.85px]">
-                            165.67 UNI
-                          </div>
-                        </div>
-                      </div>
-                      <div className='w-[1230.93px] h-[55.36px] relative'>
-                        <div className='h-[55.36px] left-0 top-0 absolute justify-start items-center gap-[15px] inline-flex'>
-                          <div className='w-[55.36px] h-[55.36px] bg-[#d9d9d9] rounded-[10px]' />
-                          <div className="text-[#303138] text-lg font-bold font-['Urbanist'] leading-[32.85px]">
-                            Project Universal
-                          </div>
-                        </div>
-                        <div className="left-[284.96px] top-[21.18px] absolute text-[#505050] text-lg font-bold font-['Urbanist'] leading-[32.85px]">
-                          $497.00
-                        </div>
-                        <div className="left-[588.15px] top-[21.18px] absolute text-[#505050] text-lg font-bold font-['Urbanist'] leading-[32.85px]">
-                          0x8855...87a4
-                        </div>
-                        <div className='left-[786.74px] top-[21.18px] absolute'>
-                          <span className="text-[#00b828] text-lg font-bold font-['Urbanist'] leading-[32.85px]">
-                            +$3.00
-                          </span>
-                          <span className="text-[#303138] text-lg font-bold font-['Urbanist'] leading-[32.85px]">
-                            {' '}
-                            (3)
-                          </span>
-                        </div>
-                        <div className='left-[952.33px] top-[21.18px] absolute'>
-                          <span className="text-[#ff0004] text-lg font-bold font-['Urbanist'] leading-[32.85px]">
-                            -$2.00
-                          </span>
-                          <span className="text-[#303138] text-lg font-bold font-['Urbanist'] leading-[32.85px]">
-                            {' '}
-                            (3)
-                          </span>
-                        </div>
-                        <div className='left-[1115.93px] top-[21.18px] absolute'>
-                          <span className="text-[#ff0004] text-lg font-bold font-['Urbanist'] leading-[32.85px]">
-                            -$1,004.00
-                          </span>
-                          <span className="text-[#303138] text-lg font-bold font-['Urbanist'] leading-[32.85px]">
-                            {' '}
-                            (9)
-                          </span>
-                        </div>
-                        <div className='w-[79px] h-[35px] left-[430.55px] top-[10.18px] absolute flex-col justify-start items-start gap-2.5 inline-flex'>
-                          <div className="text-[#303138] text-lg font-extrabold font-['Urbanist'] leading-[32.85px]">
-                            0 UNI
-                          </div>
-                          <div className="self-stretch text-[#afafaf] text-[17px] font-semibold font-['Urbanist'] leading-[32.85px]">
-                            165.67 UNI
-                          </div>
-                        </div>
-                      </div>
-                    </div>
+                        </div> */}
+                    {/* </div> */}
+                    {/* </div> */}
                   </div>
                 </div>
               </div>

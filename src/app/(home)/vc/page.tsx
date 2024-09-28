@@ -2,24 +2,26 @@ import React from 'react'
 
 function page() {
   return (
-    <div className='h-[1175.11px] bg-white justify-start items-start inline-flex'>
-      <div className='px-8 pb-8 bg-white flex-col justify-start items-start gap-[25px] inline-flex'>
-        <div className='flex-col justify-start items-end flex'>
-          <div className='w-[1295.54px] p-[34.15px] justify-start items-start gap-[934px] inline-flex'>
-            <div className='justify-start items-center gap-[17.07px] flex'>
+    <div className=' h-[100vh] w-full bg-white justify-start items-start inline-flex overflow-y-scroll '>
+      <div className='w-full px-8 pb-8 bg-white flex-col justify-start items-start gap-[25px] inline-flex'>
+        <div className='w-full flex-col justify-start items-end flex'>
+          {/** Header */}
+          <div className='w-full p-[34.15px] justify-between items-start gap-[934px] inline-flex'>
+            <div className='w-full justify-start items-center gap-[17.07px] flex'>
               <div className="text-[#18191c] text-[25.61px] font-extrabold font-['Plus Jakarta Sans'] leading-10">
                 Hi, Spicy Capital
               </div>
             </div>
-            <div className='p-[15px] bg-indigo-600 rounded-[5px] justify-center items-center gap-2.5 flex'>
-              <div className="text-white text-lg font-semibold font-['Urbanist'] leading-loose">
+
+            <div className='p-[10px] min-w-[100px] bg-indigo-600 rounded-[5px] items-center gap-2.5 flex'>
+              <span className="text-white text-md font-semibold font-['Urbanist'] leading-tight">
                 Join Now
-              </div>
-              <div className='w-[13px] h-3.5 relative' />
+              </span>
             </div>
           </div>
-          <div className='self-stretch h-[291.32px] flex-col justify-start items-start gap-[21.34px] flex'>
-            <div className='justify-start items-start gap-[25.61px] inline-flex'>
+
+          <div className='w-full self-stretch h-[291.32px] flex-col justify-start items-start gap-[21.34px] flex'>
+            <div className='w-full justify-between items-start gap-[25.61px] inline-flex'>
               <div className='w-[316.50px] h-[139.05px] relative'>
                 <div className='w-[316.50px] h-[139.05px] left-0 top-0 absolute bg-[#f8f8f8] rounded-3xl border border-black/10' />
                 <div className='w-[250.53px] h-[73.21px] left-[32.99px] top-[32.92px] absolute justify-start items-center gap-[20.06px] inline-flex'>
@@ -60,7 +62,8 @@ function page() {
                 </div>
               </div>
             </div>
-            <div className='justify-start items-center gap-[21.34px] inline-flex'>
+
+            <div className='w-full justify-between items-center gap-[21.34px] inline-flex'>
               <div className='w-[401.71px] h-[124.31px] relative'>
                 <div className='w-[401.71px] h-[124.31px] left-0 top-0 absolute bg-[#f4f4ff] rounded-[26.99px] border border-indigo-600/10' />
                 <div className='h-[82.69px] left-[20.52px] top-[20.31px] absolute flex-col justify-start items-start gap-[29.88px] inline-flex'>
@@ -91,6 +94,7 @@ function page() {
                   </div>
                 </div>
               </div>
+
               <div className='w-[274.17px] h-[130.23px] relative'>
                 <div className='w-[274.17px] h-[130.23px] left-0 top-0 absolute bg-[#f8f8f8] rounded-[20.29px] border border-black/10' />
                 <div className="left-[20.78px] top-[21.91px] absolute text-[#18191c] text-[15px] font-medium font-['Urbanist'] leading-[17.39px]">
@@ -126,7 +130,8 @@ function page() {
             </div>
           </div>
         </div>
-        <div className='h-[280px] flex-col justify-start items-start gap-[15px] flex'>
+
+        <div className='h-[280px] w-full flex-col justify-start items-start gap-[15px] flex'>
           <div className="text-[#18191c] text-[25px] font-bold font-['Urbanist'] leading-7">
             VC Description
           </div>
@@ -152,13 +157,14 @@ function page() {
             Want to work with us? You're in good company!
           </div>
         </div>
-        <div className='self-stretch h-[409.50px] flex-col justify-start items-start gap-[30px] flex'>
+
+        <div className='w-full self-stretch h-[409.50px] flex-col justify-start items-start gap-[30px] flex'>
           <div className="text-[#18191c] text-[25px] font-bold font-['Urbanist'] leading-7">
             Last 5 projects
           </div>
-          <div className='self-stretch h-[351.50px] flex-col justify-start items-start gap-5 flex'>
-            <div className='w-[1295.99px] h-[31.50px] relative'>
-              <div className='h-[11px] left-0 top-0 absolute justify-start items-center gap-[5px] inline-flex'>
+          <div className='w-full self-stretch h-[351.50px] flex-col justify-between items-start gap-5 flex'>
+            <div className='w-full h-[31.50px] relative'>
+              <div className='h-[11px] left-0 top-0 absolute justify-between items-center gap-[5px] inline-flex'>
                 <div className="text-[#afafaf] text-[15px] font-semibold font-['Urbanist'] capitalize">
                   Project Name
                 </div>
@@ -181,9 +187,9 @@ function page() {
               <div className="left-[1022.15px] top-[0.50px] absolute text-[#afafaf] text-[15px] font-semibold font-['Urbanist'] capitalize">
                 Ongoing Claim
               </div>
-              <div className='w-[1295.99px] h-[0px] left-0 top-[31.50px] absolute border border-[#e1e1e1]'></div>
+              <div className='w-full h-[0px] left-0 top-[31.50px] absolute border border-[#e1e1e1]'></div>
             </div>
-            <div className='self-stretch h-[300px] flex-col justify-start items-start gap-[25px] flex'>
+            <div className='w-full self-stretch h-[300px] flex-col justify-start items-start gap-[25px] flex'>
               <div className='w-[1295.99px] h-10 relative'>
                 <div className='h-10 left-0 top-0 absolute justify-start items-center gap-[15px] inline-flex'>
                   <img className='w-10 h-10' src='https://via.placeholder.com/40x40' />
