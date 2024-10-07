@@ -87,7 +87,7 @@ const SignupForm: React.FC = () => {
 
   return (
     <div className='w-[1440px] h-[100vh] relative bg-[#f7f9fc] flex justify-center items-center'>
-      <div className='w-[456px] h-[501px] px-7 py-8 left-[492px] bg-white rounded-[10px] border border-[#d0d4dd]'>
+      <div className='w-[456px] h-[535px] px-7 py-8 left-[492px] bg-white rounded-[10px] border border-[#d0d4dd]'>
         <div className='w-[400px] h-[437px] flex-col justify-start items-center gap-8 flex'>
           <div className='w-[400px] h-[34px] flex-col justify-start items-center flex'>
             <div className="text-[#101828] text-[28px] font-semibold font-['Urbanist'] leading-[33.60px]">
@@ -98,7 +98,7 @@ const SignupForm: React.FC = () => {
             onSubmit={handleSubmit}
             className='w-[400px] h-[371px] flex-col justify-start items-center gap-[30px] flex'
           >
-            <div className='self-stretch h-[371px] flex-col justify-start items-start gap-8 flex'>
+            <div className='self-stretch h-[371px] flex-col justify-start items-start gap-7 flex'>
               <div className='w-[400px] flex-col gap-6'>
                 {renderInputField('Username', 'username', 'text')}
                 {renderInputField('Email', 'email', 'email')}
@@ -120,7 +120,7 @@ const SignupForm: React.FC = () => {
               </div>
               <button
                 type='submit'
-                className="w-full h-[55px] bg-indigo-600 rounded-lg text-white text-base font-semibold font-['Urbanist'] leading-normal flex justify-center items-center"
+                className="w-full py-1.5 bg-indigo-600 rounded-lg text-white text-base font-semibold font-['Urbanist'] leading-normal flex justify-center items-center"
                 disabled={loading}
               >
                 {loading ? 'Signing up...' : 'SIGN UP'}

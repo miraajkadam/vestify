@@ -3,50 +3,52 @@
 import React, { useState, FormEvent } from 'react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
+import { login } from '@/lib/api'
+import { z } from 'zod'
+import { useForm } from 'react-hook-form'
+import { zodResolver } from '@hookform/resolvers/zod'
 
+import Cookies from 'js-cookie'
+
+const loginSchema = z.object({
+  email: z.string().email('Invalid email address'),
+  password: z.string().min(6, 'Password must be at least 6 characters'),
+})
+
+type LoginFormData = z.infer<typeof loginSchema>
 const LoginForm: React.FC = () => {
   const [email, setEmail] = useState<string>('')
   const [password, setPassword] = useState<string>('')
   const [loading, setLoading] = useState<boolean>(false)
   const [error, setError] = useState<string>('')
   const router = useRouter()
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<LoginFormData>({
+    resolver: zodResolver(loginSchema),
+  })
 
-  const validateForm = (): boolean => {
-    if (!email || !password) {
-      setError('Please fill in all fields.')
-      return false
-    }
-    // Additional validation logic if needed
-    return true
-  }
-
-  const handleSubmit = async (e: FormEvent<HTMLFormElement>): Promise<void> => {
-    e.preventDefault()
-
-    if (!validateForm()) return
-
+  const onSubmit = async (data: LoginFormData) => {
     setLoading(true)
     setError('')
 
     try {
-      const response = await fetch('http://localhost:3000/api/auth/login', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ email, password }),
-      })
-
-      if (response.ok) {
-        // Successful login
-        router.push('/dashboard')
+      const response = await login(data)
+      if (response.success && response.data?.access_token) {
+        Cookies.set('access_token', response.data.access_token, {
+          expires: 7,
+          secure: process.env.NODE_ENV === 'production',
+          sameSite: 'strict',
+        })
+        router.push('/vc/profile')
       } else {
-        const data = await response.json()
-        setError(data.message || 'Invalid credentials')
+        setError(response.message || 'Invalid credentials')
       }
     } catch (error) {
-      setError('An error occurred. Please try again later.')
       console.error('Login error:', error)
+      setError('An error occurred. Please try again later.')
     } finally {
       setLoading(false)
     }
@@ -62,7 +64,7 @@ const LoginForm: React.FC = () => {
             </div>
           </div>
           <form
-            onSubmit={handleSubmit}
+            onSubmit={handleSubmit(onSubmit)}
             className='w-[400px] flex-col justify-start items-center gap-[30px] flex'
           >
             <div className='self-stretch flex-col justify-start items-start gap-8 flex'>

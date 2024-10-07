@@ -3,28 +3,9 @@ import React, { useState, useEffect } from 'react'
 import Image from 'next/image'
 import logo from '../../../public/icons/user.svg'
 
-// Define your types if necessary (e.g., for the profile info, etc.)
-// interface ProfileInfo {
-//   name: string
-//   account: string
-//   kyc: string
-//   tags: string[]
-//   bigNumber: string
-// }
-
-// const initialProfile: ProfileInfo = {
-//   name: 'John Doe',
-//   account: '123456789',
-//   kyc: 'Verified',
-//   tags: ['Tag1', 'Tag2', 'Tag3'],
-//   bigNumber: '9876543210',
-// }
-
-// Define a TypeScript interface for your data structure
 interface ProjectData {
   id: number
   name: string
-  // Add other fields based on your API response
 }
 
 interface ErrorResponse {
@@ -32,7 +13,7 @@ interface ErrorResponse {
 }
 
 const Page: React.FC = () => {
-  const [data, setData] = useState<ProjectData[] | null>(null) // Adjust type according to your data
+  const [data, setData] = useState<ProjectData[] | null>(null)
   const [error, setError] = useState<string | null>(null)
   const [loading, setLoading] = useState<boolean>(true)
 
@@ -55,14 +36,12 @@ const Page: React.FC = () => {
       receivingEVM: 'EVM2',
       otc: 'No',
     },
-    // Add more deals as needed
   ]
 
   useEffect(() => {
-    // Define an async function inside the effect
     const fetchData = async () => {
       try {
-        const response = await fetch('http://localhost:3000/api/project/getAll', {
+        const response = await fetch('http://localhost:3000/api/user/{userId}/profile', {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
@@ -71,28 +50,19 @@ const Page: React.FC = () => {
 
         if (response.ok) {
           const result: ProjectData[] = await response.json()
-          setData(result) // Set the fetched data
+          setData(result)
         } else {
           const errorData: ErrorResponse = await response.json()
-          setError(errorData.message) // Set the error message
+          setError(errorData.message)
         }
       } catch (error) {
-        setError('An error occurred. Please try again later.') // Set generic error message
+        setError('An error occurred. Please try again later.')
       } finally {
-        setLoading(false) // Set loading to false when done
+        setLoading(false)
       }
     }
-
-    // Call the async function
     fetchData()
-  }, []) // Empty dependency array means this effect runs once on mount
-  // const [selectedButton, setSelectedButton] = useState<'button1' | 'button2'>('button1')
-
-  // Mock data for table based on button
-  // const tableData =
-  //   selectedButton === 'button1'
-  //     ? ['Data 1A', 'Data 1B', 'Data 1C']
-  //     : ['Data 2A', 'Data 2B', 'Data 2C']
+  }, [])
 
   console.log(data)
 
@@ -329,109 +299,6 @@ const Page: React.FC = () => {
                         </React.Fragment>
                       ))}
                     </div>
-                    {/*
-                    <div className='self-stretch h-[321.45px] flex-col justify-start items-start gap-[25px] flex'>
-                      <div className='w-[1234.93px] h-[0px] border border-[#e1e1e1]'></div>
-                      <div className='w-[1230.93px] h-[55.36px] relative'>
-                        <div className='h-[55.36px]  absolute justify-start items-center gap-[15px] inline-flex'>
-                          <div className='w-[55.36px] h-[55.36px] bg-[#d9d9d9] rounded-[10px]' />
-                          <div className="text-[#303138] text-lg font-bold font-['Urbanist'] leading-[32.85px]">
-                            Project Universal
-                          </div>
-                        </div>
-                        <div className="left-[284.96px] top-[16.18px] absolute text-[#505050] text-lg font-bold font-['Urbanist'] leading-[32.85px]">
-                          $497.00
-                        </div>
-                        <div className="left-[588.15px] top-[21.18px] absolute text-[#505050] text-lg font-bold font-['Urbanist'] leading-[32.85px]">
-                          0x8855...87a4
-                        </div>
-                        <div className='left-[786.74px] top-[21.18px] absolute'>
-                          <span className="text-[#00b828] text-lg font-bold font-['Urbanist'] leading-[32.85px]">
-                            +$3.00
-                          </span>
-                          <span className="text-[#303138] text-lg font-bold font-['Urbanist'] leading-[32.85px]">
-                            {' '}
-                            (3)
-                          </span>
-                        </div>
-                        <div className='left-[952.33px] top-[21.18px] absolute'>
-                          <span className="text-[#ff0004] text-lg font-bold font-['Urbanist'] leading-[32.85px]">
-                            -$2.00
-                          </span>
-                          <span className="text-[#303138] text-lg font-bold font-['Urbanist'] leading-[32.85px]">
-                            {' '}
-                            (3)
-                          </span>
-                        </div>
-                        <div className='left-[1115.93px] top-[21.18px] absolute'>
-                          <span className="text-[#ff0004] text-lg font-bold font-['Urbanist'] leading-[32.85px]">
-                            -$1,004.00
-                          </span>
-                          <span className="text-[#303138] text-lg font-bold font-['Urbanist'] leading-[32.85px]">
-                            {' '}
-                            (9)
-                          </span>
-                        </div>
-                        <div className='w-[79px] h-[35px] left-[430.55px] top-[10.18px] absolute flex-col justify-start items-start gap-2.5 inline-flex'>
-                          <div className="text-[#303138] text-lg font-extrabold font-['Urbanist'] leading-[32.85px]">
-                            0 UNI
-                          </div>
-                          <div className="self-stretch text-[#afafaf] text-[17px] font-semibold font-['Urbanist'] leading-[32.85px]">
-                            165.67 UNI
-                          </div>
-                        </div>
-                      </div>
-
-                      <div className='w-[100%] h-[55.36px] relative flex items-center justify-between p-1'>
-                        <div className='h-[55.36px]  flex  '>
-                          <div className='w-[55.36px] h-[55.36px] bg-[#d9d9d9] rounded-[10px]' />
-                          <div className="text-[#303138] text-lg font-bold font-['Urbanist'] leading-[32.85px]">
-                            Project Universal
-                          </div>
-                        </div>
-                        <div className=" text-[#505050] text-lg font-bold font-['Urbanist'] leading-[32.85px]">
-                          $497.00
-                        </div>
-                        <div className="  text-[#505050] text-lg font-bold font-['Urbanist'] leading-[32.85px]">
-                          0x8855...87a4
-                        </div>
-                        <div className=''>
-                          <span className="text-[#00b828] text-lg font-bold font-['Urbanist'] leading-[32.85px]">
-                            +$3.00
-                          </span>
-                          <span className="text-[#303138] text-lg font-bold font-['Urbanist'] leading-[32.85px]">
-                            {' '}
-                            (3)
-                          </span>
-                        </div>
-                        <div className=' '>
-                          <span className="text-[#ff0004] text-lg font-bold font-['Urbanist'] leading-[32.85px]">
-                            -$2.00
-                          </span>
-                          <span className="text-[#303138] text-lg font-bold font-['Urbanist'] leading-[32.85px]">
-                            {' '}
-                            (3)
-                          </span>
-                        </div>
-                        <div className=' '>
-                          <span className="text-[#ff0004] text-lg font-bold font-['Urbanist'] leading-[32.85px]">
-                            -$1,004.00
-                          </span>
-                          <span className="text-[#303138] text-lg font-bold font-['Urbanist'] leading-[32.85px]">
-                            {' '}
-                            (9)
-                          </span>
-                        </div>
-                        <div className='w-[79px] h-[35px] left-[430.55px] top-[10.18px] absolute flex-col justify-start items-start gap-2.5 inline-flex'>
-                          <div className="text-[#303138] text-lg font-extrabold font-['Urbanist'] leading-[32.85px]">
-                            0 UNI
-                          </div>
-                          <div className="self-stretch text-[#afafaf] text-[17px] font-semibold font-['Urbanist'] leading-[32.85px]">
-                            165.67 UNI
-                          </div>
-                        </div> */}
-                    {/* </div> */}
-                    {/* </div> */}
                   </div>
                 </div>
               </div>
