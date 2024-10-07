@@ -93,6 +93,26 @@ export interface VCProfile {
   }[]
 }
 
+export interface USERProfile {
+  name: string
+  description: string
+  logoBase64: string
+  subscriptionFee: string
+  tags: string[]
+  kycDone: boolean
+  fundSize: string
+
+  projects: {
+    id: string
+    name: string
+    pledgeAmount: string
+    marketCap: string
+    topGainer: string
+    raisedAmount: string
+    ongoingClaim: number
+  }[]
+}
+
 interface ApiResponse<T> {
   success: boolean
   message: string
@@ -255,6 +275,24 @@ export const getVCProjects = async (vcId: string): Promise<ApiResponse<Project[]
     return response.data
   } catch (error) {
     console.error('Error fetching VC projects:', error)
+    throw error
+  }
+}
+
+export const getUSERProfile = async (): Promise<ApiResponse<USERProfile>> => {
+  try {
+    const token = Cookies.get('access_token')
+    if (!token) {
+      throw new Error('No access token found')
+    }
+
+    const decodedToken = jwtDecode<DecodedToken>(token)
+    const userId = decodedToken.user.id
+
+    const response = await api.get<ApiResponse<VCProfile>>(`/api/user/${userId}/profile`)
+    return response.data
+  } catch (error) {
+    console.error('Error fetching VC profile:', error)
     throw error
   }
 }

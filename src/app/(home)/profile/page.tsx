@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from 'react'
 import Image from 'next/image'
 import logo from '../../../public/icons/user.svg'
+import { getUSERProfile, VCProfile } from '@/lib/api'
 
 interface ProjectData {
   id: number
@@ -13,9 +14,9 @@ interface ErrorResponse {
 }
 
 const Page: React.FC = () => {
-  const [data, setData] = useState<ProjectData[] | null>(null)
+  const [profile, setProfile] = useState<VCProfile | null>(null)
+  const [isLoading, setIsLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
-  const [loading, setLoading] = useState<boolean>(true)
 
   const dealsData = [
     {
@@ -37,34 +38,27 @@ const Page: React.FC = () => {
       otc: 'No',
     },
   ]
-
   useEffect(() => {
-    const fetchData = async () => {
+    const fetchProfile = async () => {
       try {
-        const response = await fetch('http://localhost:3000/api/user/{userId}/profile', {
-          method: 'GET',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        })
-
-        if (response.ok) {
-          const result: ProjectData[] = await response.json()
-          setData(result)
+        setIsLoading(true)
+        const response = await getUSERProfile()
+        if (response.success) {
+          setProfile(response.data)
         } else {
-          const errorData: ErrorResponse = await response.json()
-          setError(errorData.message)
+          setError(response.message)
         }
-      } catch (error) {
-        setError('An error occurred. Please try again later.')
+      } catch (err) {
+        setError('Failed to fetch VC profile')
       } finally {
-        setLoading(false)
+        setIsLoading(false)
       }
     }
-    fetchData()
+
+    fetchProfile()
   }, [])
 
-  console.log(data)
+  console.log('profile', profile)
 
   return (
     <div className='h-[100vh] bg-white justify-start items-start inline-flex w-[100%] overflow-y-scroll '>
@@ -107,17 +101,17 @@ const Page: React.FC = () => {
                     </div>
                     <div className='w-[250.26px]   h-[131.18px] flex-col justify-start items-start gap-[18.68px] inline-flex'>
                       <text className=" h-[19px] mb-[6.23px] text-[#303138] text-[27px] font-bold font-['Urbanist'] leading-[52.89px]">
-                        naka@bestify.com
+                        {profile?.info?.email}
                       </text>
                       <div className='flex-col justify-start items-start gap-[6.23px] flex'>
                         <div className=' h-[24.90px] p-[6.23px] bg-[#039be5]/10 rounded-[17.43px] justify-start items-center gap-2.5 inline-flex'>
                           <text className="text-[#5865f2] text-[15px] font-bold font-['Urbanist'] leading-[34.86px]">
-                            iNakazumi
+                            {profile?.info?.discord}
                           </text>
                         </div>
                         <div className=' h-[24.90px] p-[6.23px] bg-[#5865f2]/10 rounded-[17.43px] justify-start items-center gap-2.5 inline-flex'>
                           <text className="text-[#5865f2] text-[15px] font-bold font-['Urbanist'] leading-[34.86px]">
-                            Nka9942
+                            {profile?.info?.x}
                           </text>
                         </div>
                         <div className='justify-start items-center gap-[6.23px] inline-flex'>
@@ -128,7 +122,7 @@ const Page: React.FC = () => {
                                 KYC:{' '}
                               </span>
                               <span className="text-[#00b828] text-[15px] font-bold font-['Urbanist'] leading-[34.86px]">
-                                Approved
+                                {profile?.info?.kycDone ? 'Approved' : 'pending'}
                               </span>
                             </div>
                           </div>
@@ -147,7 +141,7 @@ const Page: React.FC = () => {
                         </div>
                         <div className='m-[4px] p-[3px]  bg-[#eeedfd] rounded-md justify-center items-center gap-[12.45px] flex'>
                           <div className="text-indigo-600 text-[15px] font-semibold font-['Urbanist'] leading-normal">
-                            15
+                            {profile?.investmentSummary?.deals}
                           </div>
                         </div>
                       </div>
@@ -157,7 +151,7 @@ const Page: React.FC = () => {
                         </div>
                         <div className='m-[4px] p-[3px] bg-[#eeedfd] rounded-md justify-center items-center gap-[12.45px] flex'>
                           <div className="text-indigo-600 text-[15px] font-semibold font-['Urbanist'] leading-normal">
-                            5
+                            {profile?.investmentSummary?.otcTrades}
                           </div>
                         </div>
                       </div>
@@ -169,7 +163,7 @@ const Page: React.FC = () => {
                         </div>
                         <div className='m-[4px] p-[3px] bg-[#eeedfd] rounded-md justify-center items-center gap-[12.45px] flex'>
                           <div className="text-indigo-600 text-[15px] font-semibold font-['Urbanist'] leading-normal">
-                            $6,324.00
+                            {profile?.investmentSummary?.totInvestment}
                           </div>
                         </div>
                       </div>
@@ -179,7 +173,7 @@ const Page: React.FC = () => {
                         </div>
                         <div className='m-[4px] p-[3px] bg-[#eeedfd] rounded-md justify-center items-center gap-[12.45px] flex'>
                           <div className="text-indigo-600 text-[15px] font-semibold font-['Urbanist'] leading-normal">
-                            $421.60
+                            {profile?.investmentSummary?.avgInvestment}
                           </div>
                         </div>
                       </div>
@@ -197,9 +191,15 @@ const Page: React.FC = () => {
                   </div>
                   <div className=' h-[137px] w-[300.58px] flex-col justify-start align-end items-end  flex'>
                     <div className="  text-[#303138]/70 text-lg font-medium font-['Inter'] leading-[32.85px]">
-                      0xa5e9138543b548ajduj5651766a46899 0xa5e9138543b548ajduj5651766a46899
-                      0xa5e9138543b548ajduj5651766a46899 0xa5e9138543b548ajduj5651766a46899
-                      0xa5e9138543b548ajduj5651766a46899
+                      {profile?.wallet?.current}
+                      {profile?.wallet?.last5Used?.map((data, index) => (
+                        <div
+                          key={index}
+                          className="text-[#303138]/70 text-lg font-medium font-['Inter'] leading-[32.85px]"
+                        >
+                          {data}
+                        </div>
+                      ))}
                     </div>
                   </div>
                 </div>
@@ -247,53 +247,54 @@ const Page: React.FC = () => {
                       <div>Refunded</div>
                       <div>OTC</div>
 
-                      {dealsData.map((item, index) => (
+                      {profile.dealsSummary.map((item, index) => (
                         <React.Fragment key={index}>
                           <div className='h-[55.36px] col-span-2 flex justify-start items-center'>
                             <div className='w-[55.36px] h-[55.36px] bg-[#d9d9d9] rounded-[10px]' />
                             <div className=" ml-4 text-[#303138] text-lg font-bold font-['Urbanist'] leading-[32.85px]">
-                              Project Universal
+                              {item.projName}
                             </div>
                           </div>
                           <div className=" text-[#505050] text-lg font-bold font-['Urbanist'] leading-[32.85px]">
-                            $497.00
+                            {item.allocation}
                           </div>
                           <div className=''>
                             <div className="text-[#303138] text-lg font-extrabold font-['Urbanist'] leading-[32.85px]">
-                              0 UNI
+                              {item.tokenRecvd}
                             </div>
                             {/* <div className="self-stretch text-[#afafaf] text-[17px] font-semibold font-['Urbanist'] leading-[32.85px]">
                               165.67 UNI
                             </div> */}
                           </div>
                           <div className=" text-[#505050] text-lg font-bold font-['Urbanist'] leading-[32.85px]">
-                            0x8855...87a4
+                            {/* {item.recEvm} */}
+                            Error
                           </div>
                           <div className=''>
                             <span className="text-[#00b828] text-lg font-bold font-['Urbanist'] leading-[32.85px]">
-                              +$3.00
+                              {item.transaction.contributed.amount}
                             </span>
                             <span className="text-[#303138] text-lg font-bold font-['Urbanist'] leading-[32.85px]">
                               {' '}
-                              (3)
+                              {item.transaction.contributed.count}
                             </span>
                           </div>
                           <div className=''>
                             <span className="text-[#ff0004] text-lg font-bold font-['Urbanist'] leading-[32.85px]">
-                              -$2.00
+                              {item.transaction.refunded.amount}
                             </span>
                             <span className="text-[#303138] text-lg font-bold font-['Urbanist'] leading-[32.85px]">
                               {' '}
-                              (3)
+                              {item.transaction.refunded.count}
                             </span>
                           </div>
                           <div className=''>
                             <span className="text-[#ff0004] text-lg font-bold font-['Urbanist'] leading-[32.85px]">
-                              -$1,004.00
+                              {item.transaction.otc.amount}
                             </span>
                             <span className="text-[#303138] text-lg font-bold font-['Urbanist'] leading-[32.85px]">
                               {' '}
-                              (9)
+                              {item.transaction.otc.count}
                             </span>
                           </div>
                         </React.Fragment>

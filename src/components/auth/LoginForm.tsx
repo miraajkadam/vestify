@@ -1,13 +1,12 @@
 'use client'
 
-import React, { useState, FormEvent } from 'react'
+import React from 'react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import { login } from '@/lib/api'
 import { z } from 'zod'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
-
 import Cookies from 'js-cookie'
 
 const loginSchema = z.object({
@@ -16,12 +15,12 @@ const loginSchema = z.object({
 })
 
 type LoginFormData = z.infer<typeof loginSchema>
+
 const LoginForm: React.FC = () => {
-  const [email, setEmail] = useState<string>('')
-  const [password, setPassword] = useState<string>('')
-  const [loading, setLoading] = useState<boolean>(false)
-  const [error, setError] = useState<string>('')
+  const [loading, setLoading] = React.useState<boolean>(false)
+  const [error, setError] = React.useState<string>('')
   const router = useRouter()
+
   const {
     register,
     handleSubmit,
@@ -42,7 +41,7 @@ const LoginForm: React.FC = () => {
           secure: process.env.NODE_ENV === 'production',
           sameSite: 'strict',
         })
-        router.push('/vc/profile')
+        router.push('/profile')
       } else {
         setError(response.message || 'Invalid credentials')
       }
@@ -55,54 +54,45 @@ const LoginForm: React.FC = () => {
   }
 
   return (
-    <div className='w-[1440px] h-[100vh] relative bg-[#f7f9fc] flex justify-center items-center'>
-      <div className='w-[456px] px-7 py-8 left-[492px] bg-white rounded-[10px] border border-[#d0d4dd]'>
-        <div className='w-[400px] flex-col justify-start items-center gap-8 flex'>
-          <div className='w-[400px] h-[34px] flex-col justify-start items-center flex'>
-            <div className="text-[#101828] text-[28px] font-semibold font-['Urbanist'] leading-[33.60px]">
-              WELCOME TO MAMBAX
-            </div>
-          </div>
-          <form
-            onSubmit={handleSubmit(onSubmit)}
-            className='w-[400px] flex-col justify-start items-center gap-[30px] flex'
-          >
-            <div className='self-stretch flex-col justify-start items-start gap-8 flex'>
-              <div className='w-[400px] flex-col gap-6'>
-                <div className='w-full flex-col gap-2'>
-                  <label className="text-[#101828] text-sm font-medium font-['Urbanist'] leading-tight">
-                    Email
-                  </label>
-                  <input
-                    type='email'
-                    className="w-full h-14 p-4 bg-white rounded-md border border-[#d0d5dd]/60 text-[#98a1b2] text-sm font-normal font-['Urbanist'] leading-tight"
-                    placeholder='Enter Email'
-                    value={email}
-                    onChange={e => setEmail(e.target.value)}
-                  />
-                </div>
-                <div className='w-full flex-col gap-2'>
-                  <label className="text-[#101828] text-sm font-medium font-['Urbanist'] leading-tight">
-                    Password
-                  </label>
-                  <input
-                    type='password'
-                    className="w-full h-14 p-4 bg-white rounded-md border border-[#d0d5dd]/60 text-[#98a1b2] text-sm font-normal font-['Urbanist'] leading-tight"
-                    placeholder='Enter Password'
-                    value={password}
-                    onChange={e => setPassword(e.target.value)}
-                  />
-                </div>
+    <div className='w-full h-screen bg-[#f7f9fc] flex justify-center items-center'>
+      <div className='w-[456px] px-7 py-8 bg-white rounded-[10px] border border-[#d0d4dd]'>
+        <div className='flex flex-col items-center gap-8'>
+          <h1 className='text-[#101828] text-[28px] font-semibold leading-[33.60px]'>
+            WELCOME TO MAMBAX
+          </h1>
+          <form onSubmit={handleSubmit(onSubmit)} className='flex flex-col gap-[30px]'>
+            <div className='flex flex-col gap-6'>
+              <div>
+                <label className='text-[#101828] text-sm font-medium leading-tight'>Email</label>
+                <input
+                  type='email'
+                  className={`w-full h-14 p-4 bg-white rounded-md border ${errors.email ? 'border-red-600' : 'border-[#d0d5dd]/60'} text-[#98a1b2] text-sm leading-tight`}
+                  placeholder='Enter Email'
+                  {...register('email')}
+                  aria-invalid={errors.email ? 'true' : 'false'}
+                />
+                {errors.email && <p className='text-red-600'>{errors.email.message}</p>}
               </div>
-              <button
-                type='submit'
-                className="w-full h-[55px] bg-indigo-600 rounded-lg text-white text-base font-semibold font-['Urbanist'] leading-normal flex justify-center items-center"
-                disabled={loading}
-              >
-                {loading ? 'Signing in...' : 'SIGN IN'}
-              </button>
-              {error && <p className='text-red-600 text-center'>{error}</p>}
+              <div>
+                <label className='text-[#101828] text-sm font-medium leading-tight'>Password</label>
+                <input
+                  type='password'
+                  className={`w-full h-14 p-4 bg-white rounded-md border ${errors.password ? 'border-red-600' : 'border-[#d0d5dd]/60'} text-[#98a1b2] text-sm leading-tight`}
+                  placeholder='Enter Password'
+                  {...register('password')}
+                  aria-invalid={errors.password ? 'true' : 'false'}
+                />
+                {errors.password && <p className='text-red-600'>{errors.password.message}</p>}
+              </div>
             </div>
+            <button
+              type='submit'
+              className='w-full h-[55px] bg-indigo-600 rounded-lg text-white text-base font-semibold flex justify-center items-center'
+              disabled={loading}
+            >
+              {loading ? 'Signing in...' : 'SIGN IN'}
+            </button>
+            {error && <p className='text-red-600 text-center'>{error}</p>}
             <p className='text-center text-sm text-gray-600'>
               Create an account?{' '}
               <Link

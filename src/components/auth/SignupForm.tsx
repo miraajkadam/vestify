@@ -2,8 +2,16 @@
 
 import React, { useState, ChangeEvent, FormEvent } from 'react'
 import { useRouter } from 'next/navigation'
+import Cookies from 'js-cookie'
+import { jwtDecode } from 'jwt-decode'
+
 import Link from 'next/link'
 
+interface TokenPayload {
+  user?: {
+    id: string
+  }
+}
 interface FormData {
   username: string
   email: string
@@ -56,6 +64,17 @@ const SignupForm: React.FC = () => {
       })
 
       if (response.ok) {
+        const data = await response.json() // Parse the response body
+        const accessToken = data.access_token // Access the token from the parsed data
+        Cookies.set('access_token', accessToken, {
+          expires: 7,
+          secure: process.env.NODE_ENV === 'production',
+          sameSite: 'strict',
+        })
+
+        const decodedToken = jwtDecode<TokenPayload>(accessToken)
+        const userId = decodedToken.user?.id || ''
+
         router.push('/dashboard')
       } else {
         const data = await response.json()
