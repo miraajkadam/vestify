@@ -3,6 +3,11 @@ import React, { useState, useEffect } from 'react'
 import Image from 'next/image'
 import logo from '../../../public/icons/user.svg'
 import { getUSERProfile, VCProfile } from '@/lib/api'
+import Navbar from '@/components/profile/Navbar'
+import Profile from '@/components/profile/Profile'
+import Tabs from '@/components/profile/Tabs'
+import Wallets from '@/components/profile/Wallets'
+import Deals from '@/components/profile/Deals'
 
 interface ProjectData {
   id: number
@@ -67,7 +72,7 @@ const Page: React.FC = () => {
           <div>
             <div className='h-[829.29px] w-full  flex-col justify-start items-start gap-[30px] flex'>
               {/* Navbar */}
-              <div className='self-stretch justify-between items-center inline-flex'>
+              {/* <div className='self-stretch justify-between items-center inline-flex'>
                 <div className='px-[11px] py-[3px] rounded-[20px] border border-[#303138]/20 justify-start items-center gap-3 flex'>
                   <div className="text-[#afafaf] text-[13px] font-medium font-['Inter'] leading-7">
                     Search Investors, allocations, deals..
@@ -80,12 +85,14 @@ const Page: React.FC = () => {
                     0x8855.,87a4
                   </div>
                 </div>
-              </div>
+              </div> */}
+              <Navbar />
 
               {/* Profile Section */}
               <div className='self-stretch w-full justify-between items-start inline-flex'>
                 <div className=' h-[240.34px] flex-col justify-start items-start gap-[24.90px] inline-flex'>
-                  <div className='w-[419.26px] h-[131.18px] justify-start items-center gap-[13.70px] inline-flex'>
+                  {/**section */}
+                  {/* <div className='w-[419.26px] h-[131.18px] justify-start items-center gap-[13.70px] inline-flex'>
                     <div className='w-[131.18px] h-[131.18px]  '>
                       <div className='w-[131.18px] h-[131.18px] bg-[#f3f3f3] rounded-xl flex-col justify-center align-center items-center  inline-flex'>
                         <Image
@@ -96,8 +103,6 @@ const Page: React.FC = () => {
                           className=' rounded-xl'
                         />
                       </div>
-                      {/* </div> */}
-                      {/* <div className='w-[76.84px] h-[92.13px] left-[27.17px] top-[19.52px] absolute' /> */}
                     </div>
                     <div className='w-[250.26px]   h-[131.18px] flex-col justify-start items-start gap-[18.68px] inline-flex'>
                       <text className=" h-[19px] mb-[6.23px] text-[#303138] text-[27px] font-bold font-['Urbanist'] leading-[52.89px]">
@@ -130,10 +135,11 @@ const Page: React.FC = () => {
                         </div>
                       </div>
                     </div>
-                  </div>
+                  </div> */}
+                  <Profile profile={profile} logo={logo} />
 
                   {/* Tabs */}
-                  <div className='w-full h-[84.25px] flex-col justify-start items-start gap-[12.45px] flex'>
+                  {/* <div className='w-full h-[84.25px] flex-col justify-start items-start gap-[12.45px] flex'>
                     <div className='w-[211.70px] h-[35.90px] justify-start items-center gap-[12.45px] inline-flex'>
                       <div className=' h-[35.90px] p-[6.23px] rounded-[9.96px] border border-[#eeedfd] justify-start items-center gap-[6.23px] flex'>
                         <div className="text-[#303138] text-[15px] font-medium font-['Urbanist'] leading-normal">
@@ -178,35 +184,37 @@ const Page: React.FC = () => {
                         </div>
                       </div>
                     </div>
-                  </div>
+                  </div> */}
+                  <Tabs profile={profile} />
                 </div>
 
                 {/* Wallets */}
-                <div className=' h-[206.35px] flex-col justify-end  items-start gap-[18.68px] inline-flex'>
-                  <div className=" h-[19px] text-[#303138] text-[27px] font-bold font-['Urbanist'] leading-[52.89px]">
-                    Account wallets
-                  </div>
-                  <div className=" h-[13px] text-[#303138] text-lg font-bold font-['Urbanist'] leading-[32.85px]">
-                    Used to sign in
-                  </div>
-                  <div className=' h-[137px] w-[300.58px] flex-col justify-start align-end items-end  flex'>
-                    <div className="  text-[#303138]/70 text-lg font-medium font-['Inter'] leading-[32.85px]">
-                      {profile?.wallet?.current}
-                      {profile?.wallet?.last5Used?.map((data, index) => (
-                        <div
-                          key={index}
-                          className="text-[#303138]/70 text-lg font-medium font-['Inter'] leading-[32.85px]"
-                        >
-                          {data}
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                </div>
+                {/* // <div className=' h-[206.35px] flex-col justify-end  items-start gap-[18.68px] inline-flex'>
+                //   <div className=" h-[19px] text-[#303138] text-[27px] font-bold font-['Urbanist'] leading-[52.89px]">
+                //     Account wallets
+                //   </div>
+                //   <div className=" h-[13px] text-[#303138] text-lg font-bold font-['Urbanist'] leading-[32.85px]">
+                //     Used to sign in
+                //   </div>
+                //   <div className=' h-[137px] w-[300.58px] flex-col justify-start align-end items-end  flex'>
+                //     <div className="  text-[#303138]/70 text-lg font-medium font-['Inter'] leading-[32.85px]">
+                      // {profile?.wallet?.current}
+                      // {profile?.wallet?.last5Used?.map((data, index) => (
+                //         <div
+                //           key={index}
+                //           className="text-[#303138]/70 text-lg font-medium font-['Inter'] leading-[32.85px]"
+                //         >
+                //           {data}
+                //         </div>
+                //       ))}
+                //     </div>
+                //   </div>
+                // </div> */}
+                <Wallets profile={profile} />
               </div>
 
               {/* Deals */}
-              <div className='w-[100%] h-[494.95px] flex-col justify-start items-center gap-[30px] flex'>
+              {/* <div className='w-[100%] h-[494.95px] flex-col justify-start items-center gap-[30px] flex'>
                 <div className='self-stretch h-12 flex-col justify-start items-start flex'>
                   <div className='justify-center items-start gap-[39px] inline-flex'>
                     <div className=' p-[10px] bg-[#f7f7ff] rounded-tl-[10px] rounded-tr-[10px] justify-center items-center gap-2.5 flex'>
@@ -262,12 +270,9 @@ const Page: React.FC = () => {
                             <div className="text-[#303138] text-lg font-extrabold font-['Urbanist'] leading-[32.85px]">
                               {item.tokenRecvd}
                             </div>
-                            {/* <div className="self-stretch text-[#afafaf] text-[17px] font-semibold font-['Urbanist'] leading-[32.85px]">
-                              165.67 UNI
-                            </div> */}
+
                           </div>
                           <div className=" text-[#505050] text-lg font-bold font-['Urbanist'] leading-[32.85px]">
-                            {/* {item.recEvm} */}
                             Error
                           </div>
                           <div className=''>
@@ -302,7 +307,8 @@ const Page: React.FC = () => {
                     </div>
                   </div>
                 </div>
-              </div>
+              </div> */}
+              <Deals profile={profile} />
             </div>
           </div>
         </div>
