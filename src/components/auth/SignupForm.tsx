@@ -6,6 +6,7 @@ import Cookies from 'js-cookie'
 import { jwtDecode } from 'jwt-decode'
 
 import Link from 'next/link'
+import { signUp } from '@/lib/api'
 
 interface TokenPayload {
   user?: {
@@ -16,12 +17,14 @@ interface FormData {
   username: string
   email: string
   password: string
+  accountType: string
 }
 
 const initialFormData: FormData = {
   username: '',
   email: '',
   password: '',
+  accountType: 'USER',
 }
 
 const SignupForm: React.FC = () => {
@@ -52,20 +55,11 @@ const SignupForm: React.FC = () => {
     setLoading(true)
     setError('')
 
-    const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000'
-
     try {
-      const response = await fetch(`${apiUrl}/api/auth/signup`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ ...formData, accountType: 'USER' }),
-      })
+      const response = await signUp(formData)
 
-      if (response.ok) {
-        const data = await response.json() // Parse the response body
-        const accessToken = data.access_token // Access the token from the parsed data
+      if (response.success) {
+        const accessToken = response.data.access_token
         Cookies.set('access_token', accessToken, {
           expires: 7,
           secure: process.env.NODE_ENV === 'production',
@@ -75,10 +69,9 @@ const SignupForm: React.FC = () => {
         const decodedToken = jwtDecode<TokenPayload>(accessToken)
         const userId = decodedToken.user?.id || ''
 
-        router.push('/dashboard')
+        router.push('/vc')
       } else {
-        const data = await response.json()
-        setError(data.message || 'An error occurred during signup.')
+        setError(response.message || 'An error occurred during signup.')
       }
     } catch (error) {
       setError('An error occurred. Please try again later.')

@@ -5,13 +5,14 @@ import { useState } from 'react'
 import Link from 'next/link'
 
 interface CapitalCardProps {
+  id: string
   name: string
   description: string
   price: string
   interval: string
 }
 
-export function CapitalCard({ name, description, price, interval }: CapitalCardProps) {
+export function CapitalCard({ id, name, description, price, interval }: CapitalCardProps) {
   const [isExpanded, setIsExpanded] = useState(false)
 
   const toggleExpand = () => setIsExpanded(!isExpanded)
@@ -51,7 +52,7 @@ export function CapitalCard({ name, description, price, interval }: CapitalCardP
           <span className='font-bold text-lg'>{price}</span>
           {interval && <span className='text-gray-500 text-xs ml-1'>/{interval}</span>}
         </div>
-        <Link href='/blog' passHref>
+        <Link href={`/vc/${id}`} passHref>
           <Button className='bg-indigo-600 text-white px-4 py-2 rounded-full text-xs font-medium hover:bg-indigo-700'>
             Details
             <ArrowRight className='ml-2 h-4 w-4' />

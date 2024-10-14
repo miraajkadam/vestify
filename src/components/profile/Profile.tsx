@@ -8,8 +8,6 @@ function Profile({ profile, logo }) {
         <div className='w-[131.18px] h-[131.18px] bg-[#f3f3f3] rounded-xl flex-col justify-center align-center items-center  inline-flex'>
           <Image src={logo} alt='Profile Image' width='76' height='92' className=' rounded-xl' />
         </div>
-        {/* </div> */}
-        {/* <div className='w-[76.84px] h-[92.13px] left-[27.17px] top-[19.52px] absolute' /> */}
       </div>
       <div className='w-[250.26px]   h-[131.18px] flex-col justify-start items-start gap-[18.68px] inline-flex'>
         <text className=" h-[19px] mb-[6.23px] text-[#303138] text-[27px] font-bold font-['Urbanist'] leading-[52.89px]">
