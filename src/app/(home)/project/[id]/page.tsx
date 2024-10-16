@@ -66,22 +66,44 @@ export default function ProjectDetails({ params }: { params: { id: string } }) {
   }
 
   return (
-    <div className='container mx-auto px-4 py-8'>
-      <h1 className='text-3xl font-bold mb-8'>{projectDetails.name}</h1>
+    <div className='h-[100vh] w-full bg-white items-start inline-flex overflow-y-scroll'>
+      <div className='pt-[35px] w-full pb-8 bg-white flex-col justify-start items-end inline-flex'>
+        <div className='px-8 w-full flex-col justify-start items-start flex'>
+          <div className='flex-col w-full justify-start items-start gap-[30px] flex'>
+            <div className='w-full justify-end items-end gap-[103px] inline-flex'>
+              <div className='w-full flex-col justify-start items-start gap-6 inline-flex'>
+                {/* Header */}
+                <div className='w-full flex-col justify-start items-start gap-[15px] flex'>
+                  <div className='p-1.5 bg-[#f3f3f3] rounded-[50px] justify-center items-center gap-2.5 inline-flex'>
+                    <div className="text-black text-[15px] font-semibold font-['Urbanist'] leading-snug">
+                      Distributing
+                    </div>
+                  </div>
+                  <div className="text-black text-3xl font-bold font-['Urbanist'] leading-[43.50px]">
+                    {projectDetails.name}
+                  </div>
+                </div>
+                {/* Profile */}
+                <Profile token={projectDetails.token} project={projectDetails} />
+              </div>
+              {/* Right side content */}
+              <div className='flex-col justify-start items-end gap-[25px] inline-flex'>
+                {/* ... Add right side content here ... */}
+              </div>
+            </div>
 
-      <div className='grid grid-cols-1 md:grid-cols-2 gap-8'>
-        <div>
-          <About project={projectDetails} />
-          <Deal project={projectDetails} />
+            <div className='w-full flex-col justify-start items-start gap-[30px] flex'>
+              <div className='w-full justify-start items-start gap-[53px] inline-flex'>
+                <div className='w-full flex-col justify-start items-start gap-[25px] inline-flex'>
+                  <About project={projectDetails} />
+                  <Team project={projectDetails} />
+                  <Partner partnersAndInvestors={projectDetails.partnersAndInvestors} />
+                </div>
+                <Deal project={projectDetails} />
+              </div>
+            </div>
+          </div>
         </div>
-        <div>
-          <Profile token={projectDetails.token} project={projectDetails} />
-          <Team project={projectDetails} />
-        </div>
-      </div>
-
-      <div className='mt-8'>
-        <Partner partnersAndInvestors={projectDetails.partnersAndInvestors} />
       </div>
     </div>
   )

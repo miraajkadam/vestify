@@ -4,15 +4,18 @@ import React, { useState, ChangeEvent, FormEvent } from 'react'
 import { useRouter } from 'next/navigation'
 import Cookies from 'js-cookie'
 import { jwtDecode } from 'jwt-decode'
-
 import Link from 'next/link'
 import { signUp } from '@/lib/api'
+import TwitterIcon from '../ui/Icons/TwitterIcon'
+import DiscordIcon from '../ui/Icons/DiscordIcon'
+import EyeIcon from '../ui/Icons/EyeIcon'
 
 interface TokenPayload {
   user?: {
     id: string
   }
 }
+
 interface FormData {
   username: string
   email: string
@@ -31,11 +34,17 @@ const SignupForm: React.FC = () => {
   const [formData, setFormData] = useState<FormData>(initialFormData)
   const [loading, setLoading] = useState<boolean>(false)
   const [error, setError] = useState<string>('')
+  const [passwordError, setPasswordError] = useState<string>('')
+  const [showPassword, setShowPassword] = useState(false)
   const router = useRouter()
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target
     setFormData(prevData => ({ ...prevData, [name]: value }))
+
+    if (name === 'password') {
+      setPasswordError('')
+    }
   }
 
   const validateForm = (): boolean => {
@@ -44,6 +53,16 @@ const SignupForm: React.FC = () => {
       setError('Please fill in all fields.')
       return false
     }
+
+    const passwordRegex = /^(?=.*[A-Z])(?=.*\d).{6,}$/
+    if (!passwordRegex.test(password)) {
+      setPasswordError(
+        'Password must be at least 6 characters long, start with a capital letter, and contain a number.'
+      )
+      return false
+    }
+
+    setPasswordError('')
     return true
   }
 
@@ -75,81 +94,96 @@ const SignupForm: React.FC = () => {
       }
     } catch (error) {
       setError('An error occurred. Please try again later.')
-      console.error('Signup error:', error)
     } finally {
       setLoading(false)
     }
   }
 
   const renderInputField = (label: string, name: keyof FormData, type: string) => (
-    <div className='w-full flex-col gap-2'>
-      <label className="text-[#101828] text-sm font-medium font-['Urbanist'] leading-tight">
-        {label}
+    <div className='w-full mb-6'>
+      <label htmlFor={name} className='block text-sm font-medium text-gray-700 mb-2'>
+        {label.toUpperCase()}
       </label>
-      <input
-        type={type}
-        name={name}
-        className="w-full h-14 p-4 bg-white rounded-md border border-[#d0d5dd]/60 text-[#98a1b2] text-sm font-normal font-['Urbanist'] leading-tight"
-        placeholder={`Enter ${label}`}
-        value={formData[name]}
-        onChange={handleInputChange}
-      />
+      <div className='relative'>
+        <input
+          id={name}
+          name={name}
+          type={name === 'password' ? (showPassword ? 'text' : 'password') : type}
+          value={formData[name]}
+          onChange={handleInputChange}
+          className='w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 text-black'
+          required
+        />
+        {name === 'password' && (
+          <button
+            type='button'
+            onClick={() => setShowPassword(!showPassword)}
+            className='absolute inset-y-0 right-0 pr-3 flex items-center text-sm leading-5'
+          >
+            <EyeIcon className={`h-5 w-5 ${showPassword ? 'text-indigo-600' : 'text-gray-400'}`} />
+          </button>
+        )}
+      </div>
+      {name === 'password' && passwordError && (
+        <p className='text-xs text-red-500 mt-1'>{passwordError}</p>
+      )}
     </div>
   )
 
   return (
-    <div className='w-[1440px] h-[100vh] relative bg-[#f7f9fc] flex justify-center items-center'>
-      <div className='w-[456px] h-[535px] px-7 py-8 left-[492px] bg-white rounded-[10px] border border-[#d0d4dd]'>
-        <div className='w-[400px] h-[437px] flex-col justify-start items-center gap-8 flex'>
-          <div className='w-[400px] h-[34px] flex-col justify-start items-center flex'>
-            <div className="text-[#101828] text-[28px] font-semibold font-['Urbanist'] leading-[33.60px]">
-              WELCOME TO MAMBAX
-            </div>
-          </div>
-          <form
-            onSubmit={handleSubmit}
-            className='w-[400px] h-[371px] flex-col justify-start items-center gap-[30px] flex'
-          >
-            <div className='self-stretch h-[371px] flex-col justify-start items-start gap-7 flex'>
-              <div className='w-[400px] flex-col gap-6'>
-                {renderInputField('Username', 'username', 'text')}
-                {renderInputField('Email', 'email', 'email')}
-                {renderInputField('Password', 'password', 'password')}
-              </div>
-              <div className='w-full flex justify-between gap-4'>
-                <div className='w-[200px] h-[60px] bg-[#ecf9ff] rounded-[10px] flex items-center justify-center gap-[5px]'>
-                  <div className='w-10 h-10 relative' />
-                  <div className="text-black text-base font-semibold font-['Urbanist'] leading-normal">
-                    Twitter
-                  </div>
-                </div>
-                <div className='w-[200px] h-[60px] bg-[#f1f2ff] rounded-[10px] flex items-center justify-center gap-[5px]'>
-                  <div className='w-10 h-10 relative' />
-                  <div className="text-black text-base font-semibold font-['Urbanist'] leading-normal">
-                    Discord
-                  </div>
-                </div>
-              </div>
-              <button
-                type='submit'
-                className="w-full py-1.5 bg-indigo-600 rounded-lg text-white text-base font-semibold font-['Urbanist'] leading-normal flex justify-center items-center"
-                disabled={loading}
-              >
-                {loading ? 'Signing up...' : 'SIGN UP'}
-              </button>
-              {error && <p className='text-red-600 text-center'>{error}</p>}
-            </div>
-            <p className='text-center text-sm text-gray-600'>
-              Already have an account?{' '}
-              <Link
-                href='/auth/login'
-                className='font-medium text-indigo-600 hover:text-indigo-500'
-              >
-                Log in
-              </Link>
-            </p>
-          </form>
+    <div className='w-[456px] px-7 py-8 bg-white rounded-[10px] border border-[#d0d4dd]'>
+      <div className='w-[400px] flex-col justify-start items-center gap-8 flex'>
+        <div className='w-[400px] h-[34px] flex-col justify-start items-center flex'>
+          <h1 className="text-[#101828] text-[28px] font-semibold font-['Urbanist'] leading-[33.60px]">
+            WELCOME TO MAMBAX
+          </h1>
         </div>
+        <form
+          onSubmit={handleSubmit}
+          className='w-full flex-col justify-start items-center gap-[30px] flex'
+        >
+          <div className='self-stretch flex-col justify-start items-start gap-6 flex'>
+            <div className='w-full flex-col gap-6'>
+              {renderInputField('Username', 'username', 'text')}
+              {renderInputField('Email', 'email', 'email')}
+              {renderInputField('Password', 'password', 'password')}
+            </div>
+            <div className='w-full flex justify-between gap-4'>
+              <button
+                type='button'
+                className='w-[200px] h-[60px] bg-[#ecf9ff] rounded-[10px] flex items-center justify-center gap-3'
+              >
+                <TwitterIcon className='w-6 h-6 text-[#1DA1F2]' />
+                <span className="text-black text-base font-semibold font-['Urbanist'] leading-normal">
+                  Twitter
+                </span>
+              </button>
+              <button
+                type='button'
+                className='w-[200px] h-[60px] bg-[#f1f2ff] rounded-[10px] flex items-center justify-center gap-3'
+              >
+                <DiscordIcon className='w-6 h-6 text-[#5865F2]' />
+                <span className="text-black text-base font-semibold font-['Urbanist'] leading-normal">
+                  Discord
+                </span>
+              </button>
+            </div>
+            <button
+              type='submit'
+              className="w-full h-[55px] px-6 py-4 bg-indigo-600 rounded-lg text-white text-base font-semibold font-['Urbanist'] leading-normal flex justify-center items-center gap-2.5"
+              disabled={loading}
+            >
+              {loading ? 'Signing up...' : 'SIGN UP'}
+            </button>
+            {error && <p className='text-red-600 text-center'>{error}</p>}
+          </div>
+          <p className='text-center text-gray-700'>
+            Already have an account?{' '}
+            <Link href='/auth/login' className='text-blue-500 hover:underline'>
+              Log in
+            </Link>
+          </p>
+        </form>
       </div>
     </div>
   )

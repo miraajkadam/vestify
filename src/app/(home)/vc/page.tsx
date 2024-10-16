@@ -19,22 +19,38 @@ const DashboardContent: React.FC = () => {
   const [loading, setLoading] = useState<boolean>(true)
 
   useEffect(() => {
+    let isMounted = true
+    const controller = new AbortController()
+
     const fetchData = async () => {
       try {
-        const result = await getAllVCs()
-        if (result.success) {
-          setData(result.data)
-        } else {
-          setError(result.message)
+        const result = await getAllVCs(controller.signal)
+        if (isMounted) {
+          if (result.success) {
+            setData(result.data)
+          } else {
+            setError(result.message)
+          }
         }
-      } catch (error) {
-        setError('An error occurred. Please try again later.')
+      } catch (error: unknown) {
+        if (isMounted) {
+          if (error instanceof Error && error.name !== 'AbortError') {
+            setError('An error occurred. Please try again later.')
+          }
+        }
       } finally {
-        setLoading(false)
+        if (isMounted) {
+          setLoading(false)
+        }
       }
     }
 
     fetchData()
+
+    return () => {
+      isMounted = false
+      controller.abort()
+    }
   }, [])
 
   if (loading) {
@@ -46,9 +62,9 @@ const DashboardContent: React.FC = () => {
   }
 
   return (
-    <div className='p-8'>
+    <div className='px-16 py-8'>
       <div className='flex justify-between items-center mb-8'>
-        <h1 className='text-3xl font-bold'>Venture Capitals</h1>
+        <h1 className='text-3xl font-bold text-[#1E293B]'>Capitals</h1>
         <div className='flex space-x-4'>
           <Search />
           <Filters />

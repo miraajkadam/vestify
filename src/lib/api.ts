@@ -285,13 +285,33 @@ export interface VCListItem {
   id: string
 }
 
-export const getAllVCs = async (): Promise<ApiResponse<VCListItem[]>> => {
+export const getAllVCs = async (signal?: AbortSignal): Promise<ApiResponse<VCListItem[]>> => {
   try {
-    const response = await api.get<ApiResponse<VCListItem[]>>('/api/vc/getAll')
+    const response = await api.get<ApiResponse<VCListItem[]>>('/api/vc/getAll', { signal })
     return response.data
-  } catch (error) {
-    console.error('Error fetching all VCs:', error)
-    throw error
+  } catch (error: unknown) {
+    if (error instanceof Error && error.name === 'AbortError') {
+      console.log('Request was aborted')
+      return {
+        success: false,
+        message: 'Request was cancelled',
+        data: [],
+      }
+    }
+    if (axios.isAxiosError(error)) {
+      console.error('Error fetching all VCs:', error.response?.data || error.message)
+      return {
+        success: false,
+        message: error.response?.data?.message || 'An error occurred while fetching VCs',
+        data: [],
+      }
+    }
+    console.error('Unexpected error:', error)
+    return {
+      success: false,
+      message: 'An unexpected error occurred',
+      data: [],
+    }
   }
 }
 
