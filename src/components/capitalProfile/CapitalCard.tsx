@@ -12,13 +12,34 @@ interface CapitalCardProps {
   interval: string
 }
 
-export function CapitalCard({ id, name, description, price, interval }: CapitalCardProps) {
+function ExpandableDescription({ description }: { description: string }) {
   const [isExpanded, setIsExpanded] = useState(false)
-
   const toggleExpand = () => setIsExpanded(!isExpanded)
 
   return (
-    <div className='w-[315px] bg-white p-5 rounded-3xl border border-gray-300 flex flex-col h-full shadow-sm'>
+    <div className='flex-grow overflow-auto'>
+      <div
+        className={`font-urbanist text-sm leading-6 text-gray-600 mb-1 ${
+          isExpanded ? '' : 'line-clamp-4'
+        }`}
+      >
+        {description}
+      </div>
+      {description.length > 150 && (
+        <button
+          onClick={toggleExpand}
+          className='font-urbanist text-sm font-semibold text-blue-500 mt-2 hover:underline text-left'
+        >
+          {isExpanded ? 'See Less' : 'See More'}
+        </button>
+      )}
+    </div>
+  )
+}
+
+export function CapitalCard({ id, name, description, price, interval }: CapitalCardProps) {
+  return (
+    <div className='w-[315px] bg-white p-5 rounded-3xl border border-gray-300 flex flex-col h-[400px] shadow-sm'>
       <div className='flex justify-between items-start mb-4'>
         <div className='bg-blue-500 rounded-full p-2'>
           <Twitter className='h-5 w-5 text-white' />
@@ -30,22 +51,7 @@ export function CapitalCard({ id, name, description, price, interval }: CapitalC
 
       <h2 className='font-urbanist text-xl font-semibold mb-3 text-black'>{name}</h2>
 
-      <div
-        className={`font-urbanist text-sm leading-6 text-gray-600 mb-1 ${
-          isExpanded ? '' : 'line-clamp-4'
-        }`}
-      >
-        {description}
-      </div>
-
-      {description.length > 120 && (
-        <button
-          onClick={toggleExpand}
-          className='font-urbanist text-sm font-semibold text-blue-500 mb-4 hover:underline text-left'
-        >
-          {isExpanded ? 'See Less' : 'See More'}
-        </button>
-      )}
+      <ExpandableDescription description={description} />
 
       <div className='flex justify-between items-center mt-auto'>
         <div className='font-urbanist'>

@@ -39,15 +39,13 @@ export default function VCProfilePage() {
   if (!profile) return <NoProfileData />
 
   return (
-    <div className='h-[100vh] w-full bg-white justify-start items-start inline-flex overflow-y-scroll'>
-      <div className='w-full px-8 pb-8 bg-white flex-col justify-start items-start gap-[25px] inline-flex'>
-        <div className='w-full flex-col justify-start items-end flex'>
-          <Navbar profile={profile} />
-          <Profile profile={profile} />
-        </div>
-        <Descp profile={profile} />
-        <Projects profile={profile} />
+    <div className='w-full px-4 pb-4'>
+      <div className='w-full flex-col justify-start items-end flex'>
+        <Navbar profile={profile} />
+        <Profile profile={profile} />
       </div>
+      <Descp profile={profile} />
+      <Projects profile={profile} />
     </div>
   )
 }
