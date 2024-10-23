@@ -1,6 +1,6 @@
 'use client'
 import React, { useState, useEffect } from 'react'
-import logo from '../../../public/icons/user.svg'
+import logo from '../../../../public/icons/user.svg'
 import { getUserProfile, UserProfile } from '@/lib/api'
 import Navbar from '@/components/profile/Navbar'
 import Profile from '@/components/profile/Profile'
