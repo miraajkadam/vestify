@@ -62,7 +62,7 @@ const DashboardContent: React.FC = () => {
   }
 
   return (
-    <div className='px-16 py-8'>
+    <div className='px-12 py-4'>
       <div className='flex justify-between items-center mb-8'>
         <h1 className='text-3xl font-bold text-[#1E293B]'>Capitals</h1>
         <div className='flex space-x-4'>

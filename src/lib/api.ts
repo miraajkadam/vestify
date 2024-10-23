@@ -21,21 +21,22 @@ export interface SignUpData {
 //   kycDone: boolean;
 // }
 
+export type ProjectRound = 'PRE SEED' | 'SEED' | 'PRIVATE 1' | 'PRIVATE 2' | 'PRIVATE 3' | 'PUBLIC'
+
 export interface ProjectInfo {
   name: string
-  category: string
+  categories: string[]
   description: string
-  round: string
   vcId: string
 }
 
 export interface TokenMetrics {
-  allocation: string
+  round: ProjectRound
   fdv: string
   price: string
   tgeUnlock: string
   tge: string
-  vesting: string
+  tgeSummary: string
 }
 
 export interface Deals {
@@ -43,12 +44,15 @@ export interface Deals {
   minimum: number
   acceptedTokens: string
   poolFee: number
+  startDate: string
+  endDate: string
 }
 
 export interface TeamMember {
-  description: string
   name: string
   title: string
+  description: string
+  imgBase64?: string
 }
 
 export interface Partner {
@@ -67,12 +71,13 @@ export interface ProjectSocials {
 
 export interface ProjectData {
   info: ProjectInfo
-  tokenMetrics: TokenMetrics
+  tokenMetrics: TokenMetrics[]
   deals: Deals
   teamAndAdvisors: TeamMember[]
   partnersAndInvestors: Partner[]
   projectSocials: ProjectSocials
 }
+
 export interface VCProfile {
   name: string
   description: string

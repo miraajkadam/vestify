@@ -1,32 +1,25 @@
 import React from 'react'
 import Image from 'next/image'
 import { VCProfileByID } from '@/lib/api'
+import discordicon from '../../../public/Discord.svg'
 
 interface ProfileProps {
   profile: VCProfileByID | null
 }
 
 function Profile({ profile }: ProfileProps) {
+  console.log(profile)
   return (
     <div className='w-full self-stretch h-[291.32px] flex-col justify-start items-start gap-[21.34px] flex'>
       <div className='w-full justify-between items-start gap-[25.61px] inline-flex'>
         <div className='w-[316.50px] h-[139.05px] relative'>
           <div className='w-[316.50px] h-[139.05px] left-0 top-0 absolute bg-[#f8f8f8] rounded-3xl border border-black/10' />
           <div className='w-[250.53px] h-[73.21px] left-[32.99px] top-[32.92px] absolute justify-start items-center gap-[20.06px] inline-flex'>
-            <div className='w-[73.21px] h-[73.21px] bg-[#bad7ff] rounded-full overflow-hidden relative'>
-              {profile?.logoBase64 ? (
-                <Image
-                  src={`data:image/png;base64,${profile.logoBase64}`}
-                  alt={profile?.name || 'Profile logo'}
-                  layout='fill'
-                  objectFit='cover'
-                />
-              ) : (
-                <div className='w-full h-full bg-[#bad7ff] flex items-center justify-center text-2xl font-bold text-white'>
-                  {profile?.name ? profile.name[0].toUpperCase() : '?'}
-                </div>
-              )}
-            </div>
+            <img
+              src={profile?.logoBase64}
+              className='w-[73.21px] h-[73.21px] bg-[#bad7ff] rounded-full'
+              alt={profile?.name || 'Profile logo'}
+            />
             <div className="text-[#18191c] text-[35px] font-bold font-['Urbanist'] leading-[46.12px]">
               {profile?.name}
             </div>
@@ -35,22 +28,29 @@ function Profile({ profile }: ProfileProps) {
         <div className='w-[271.45px] h-[139.75px] relative'>
           <div className='w-[271.45px] h-[139.75px] left-0 top-0 absolute bg-[#f8f8f8] rounded-[20.29px] border border-black/10' />
           <div className="left-[20.69px] top-[20.29px] absolute text-[#18191c] text-[15px] font-medium font-['Urbanist'] leading-[17.39px]">
-            KYC States
+            KYC Status
           </div>
-          <div className='h-[49.09px] p-[16.05px] left-[60px] top-[60.65px] absolute bg-[#b80000]/5 rounded-lg justify-start items-center gap-2 inline-flex'>
-            <div className="text-[#ea0000] text-2xl font-semibold font-['Urbanist'] leading-[32.81px]">
-              {profile?.kycDone ? 'Approved' : 'Pending'}
+          {profile?.kycDone ? (
+            <div className='h-[49.09px] p-[16.05px] left-[60px] top-[60.65px] absolute bg-[#00b800]/5 rounded-lg justify-start items-center gap-2 inline-flex'>
+              <div className="text-[#00ea00] text-2xl font-semibold font-['Urbanist'] leading-[32.81px]">
+                Approved
+              </div>
             </div>
-          </div>
+          ) : (
+            <div className='h-[49.09px] p-[16.05px] left-[60px] top-[60.65px] absolute bg-[#b80000]/5 rounded-lg justify-start items-center gap-2 inline-flex'>
+              <div className="text-[#ea0000] text-2xl font-semibold font-['Urbanist'] leading-[32.81px]">
+                Required
+              </div>
+            </div>
+          )}
         </div>
-        <div className='w-[276.89px] h-[139.75px] relative'>
-          <div className='w-[276.89px] h-[139.75px] left-0 top-0 absolute bg-[#f8f8f8] rounded-[20.29px] border border-black/10' />
-          <div className='h-[23.45px] left-[20.57px] top-[76.57px] absolute justify-start items-center gap-[35.40px] inline-flex'>
-            <div className='w-[22.92px] h-[23.45px] relative' />
-            <div className='w-[23.48px] h-[23.45px] relative' />
-          </div>
-          <div className="left-[20.57px] top-[20.29px] absolute text-[#18191c] text-[15px] font-medium font-['Urbanist'] leading-[17.39px]">
-            Social Media:
+        <div className='w-[276.89px] h-[139.75px] bg-[#f8f8f8] rounded-[20.29px] border border-black/10'>
+          <div className="p-5 flex-col justify-between h-full w-full  inline-flex text-[#18191c] text-[15px] font-medium font-['Urbanist'] leading-[17.39px]">
+            <span>Social Media:</span>
+            <div className='flex gap-5 py-4 flex-row justify-start items-start '>
+              <Image className='w-[30.57px] h-[23.57px] ' alt='' src={discordicon} />
+              <Image className='w-[30.57px] h-[23.57px] ' alt='' src={discordicon} />
+            </div>
           </div>
         </div>
         <div className='w-[354.31px] h-[124.31px] relative'>
@@ -72,26 +72,16 @@ function Profile({ profile }: ProfileProps) {
               Tags
             </div>
             <div className='self-stretch justify-start items-center gap-[8.54px] inline-flex'>
-              <div className='px-[12.81px] py-[6.40px] bg-[#443cc4] rounded-[10.67px] justify-start items-start gap-[10.67px] flex'>
-                <div className="text-white text-[15px] font-medium font-['Inter'] leading-snug">
-                  DEFI
+              {profile?.tags.map((tag, index) => (
+                <div
+                  key={index}
+                  className='px-[12.81px] py-[6.40px] bg-[#443cc4] rounded-[10.67px] justify-start items-start gap-[10.67px] flex'
+                >
+                  <div className="text-white text-[15px] font-medium font-['Inter'] leading-snug">
+                    {tag}
+                  </div>
                 </div>
-              </div>
-              <div className='px-[12.81px] py-[6.40px] bg-[#443cc4] rounded-[10.67px] justify-start items-start gap-[10.67px] flex'>
-                <div className="text-white text-[15px] font-medium font-['Inter'] leading-snug">
-                  API
-                </div>
-              </div>
-              <div className='px-[12.81px] py-[6.40px] bg-[#443cc4] rounded-[10.67px] justify-start items-start gap-[10.67px] flex'>
-                <div className="text-white text-[15px] font-medium font-['Inter'] leading-snug">
-                  DEFI
-                </div>
-              </div>
-              <div className='px-[12.81px] py-[6.40px] bg-[#443cc4] rounded-[10.67px] justify-start items-start gap-[10.67px] flex'>
-                <div className="text-white text-[15px] font-medium font-['Inter'] leading-snug">
-                  INFRASTRUCTURE
-                </div>
-              </div>
+              ))}
             </div>
           </div>
         </div>

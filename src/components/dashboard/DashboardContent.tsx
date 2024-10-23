@@ -46,7 +46,7 @@ const DashboardContent: React.FC = () => {
   )
 
   return (
-    <div className='flex flex-col min-h-screen bg-gray-100'>
+    <div>
       <header>
         <div className='mx-auto py-4 px-4 sm:px-6 lg:px-8'>
           <div className='flex justify-between items-center'>
